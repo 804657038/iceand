@@ -1,0 +1,46 @@
+
+<div class="layui-tab-content">
+    <form action="{:sysuri()}" method="post" data-auto="true" class="layui-form layui-card" data-table-id="UserTable">
+        <div class="layui-card-body padding-left-40">
+            <fieldset class="layui-bg-gray">
+                <legend><b class="layui-badge think-bg-violet">表单信息</b></legend>
+                {foreach $field as $val}
+                <div class="layui-form-item">
+                    <div class="help-label {if isset($val['required'])}label-required-prev{/if}"><b>{$val.label}</b></div>
+                    <div class="layui-textarea help-checks">
+                        {$val.view|raw}
+                    </div>
+
+                    {if isset($val['help'])}
+                    <span class="help-block">{$val['help']}</span>
+                    {/if}
+                </div>
+                {/foreach}
+            </fieldset>
+        </div>
+
+        <div class="hr-line-dashed"></div>
+        {notempty name='vo.id'}<input type='hidden' value='{$vo.id}' name='id'>{/notempty}
+        <div class="layui-form-item text-center">
+            <button class="layui-btn" type='submit'>保存数据</button>
+            <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？"  {if isset($formType) && $formType="open"}data-history-back{else}data-close{/if}>取消编辑</button>
+        </div>
+    </form>
+</div>
+<script>
+    require(['ckeditor'], function () {
+        /*! 初始化 富文本插件 */
+        (function initTextArea() {
+
+            $('textarea[data-editor]').map(function () {
+
+                if (!$(this).attr('inited')) {
+                    $(this).attr('inited', true);
+                    window.createEditor('[name='+$(this).attr('name')+']', {height: 150})
+                }
+            });
+            setTimeout(initTextArea, 100);
+        })();
+    });
+
+</script>

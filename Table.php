@@ -1,0 +1,108 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: huawei
+ * Date: 2023/11/16
+ * Time: 14:03
+ */
+namespace iceand;
+
+use think\facade\View;
+
+/**
+ * Class Table
+ * 动态助手调用
+ * @method Table width(int $val) 设置宽度
+ * @method Table isedit(bool $val) 设置是否允许修改字段
+ * @method Table templet(string $name,string $templetType='') 设置是否允许修改字段
+ * @package iceand
+ */
+class Table
+{
+
+    /**
+     * @title 魔术方法
+     * @param $name
+     * @param $arguments
+     * @return $this
+     */
+    public function __call($name, $arguments)
+    {
+        // TODO: Implement __call() method.
+        if($name == 'templet'){
+            $this->templet = $arguments[0];
+            if(isset($arguments[1]))$this->templetType = $arguments[1];
+
+        }else{
+            $this->$name = count($arguments) == 1?$arguments[0]:$arguments;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @title 设置字段
+     * @param string $field
+     * @param string $title
+     * @return Table
+     */
+    public static function field(string $field,string $title){
+        $self = new self();
+        $self->field = $field;
+        $self->title = $title;
+        return $self;
+    }
+
+    /**
+     * @title 设置是否隐藏添加按钮
+     * @return $this
+     */
+    public function hideButtonAdd(){
+        View::assign('hideButtonAdd',true);
+        return $this;
+    }
+
+    /**
+     * @title 设置是否隐藏删除按钮
+     * @return $this
+     */
+    public function hideButtonDel(){
+        View::assign('hideButtonAdd',true);
+        return $this;
+    }
+    public function template(){
+        return dirname(__FILE__).'/view/table.html';
+    }
+    public function search($data):Table{
+        $arr = [];
+        $resData = [];
+        foreach ($data as $val){
+            $vars = get_object_vars($val);
+            $item = [];
+            foreach ($vars as $k=>$v){
+                if($v) $item[$k]=$v;
+            }
+            $resData[]=$item;
+        }
+        View::assign("search",$resData);
+        return $this;
+    }
+
+    /**
+     * @param $data
+     * @return Table
+     */
+    public static function header($data):Table{
+        $resData= [];
+        foreach ($data as $val){
+            $vars = get_object_vars($val);
+            $item = [];
+            foreach ($vars as $k=>$v){
+                $item[$k]=$v;
+            }
+            $resData[]=$item;
+        }
+        View::assign('tableHeader',$resData);
+        return (new self);
+    }
+}
