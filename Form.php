@@ -146,6 +146,17 @@ EOT;
     }
 
     /**
+     * @title 时间选择插件
+     * @param $item
+     */
+    public function date($item){
+$html = <<<EOT
+<input data-date-input name="{$item['field']}" value="{$item['value']}" placeholder="{:lang('请选择时间')}" class="layui-input">
+EOT;
+        return $html;
+
+    }
+    /**
      * @title 二级联动搜索
      * @param [
      * 'type'=>'select',

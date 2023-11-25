@@ -20,6 +20,7 @@ namespace iceand;
  * @method static FormItem img(string $field, string $label) 单图上传
  * @method static FormItem linkage2(string $field, string $label) 二级联动select
  * @method static FormItem editor(string $field, string $label) 富文本编辑器
+ * @method static FormItem date(string $field, string $label) 日期选择
  */
 class FormItem
 {

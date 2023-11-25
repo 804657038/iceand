@@ -96,7 +96,10 @@ class Table
      * @title 自定义总按钮,变量是HTML代码
      */
     public function allBtn($tempte){
+
         View::assign('allBtn',$tempte);
+        return $this;
+
     }
     public function template($formType=""){
         if($formType){
