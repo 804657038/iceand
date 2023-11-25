@@ -217,7 +217,7 @@ EOT;
     }
 
 
-    public static function template($field = []){
+    public static function template($field = [],$formType=""){
         foreach ($field as &$val){
             if(method_exists((new self),$val['type'])){
                 $method = $val['type'];
@@ -229,7 +229,9 @@ EOT;
 
         }
         unset($val);
-
+        if($formType){
+            View::assign('formType',$formType);
+        }
         View::assign('field',$field);
         return dirname(__FILE__).'/view/form.html';
     }

@@ -15,6 +15,7 @@ namespace iceand;
  * 静态调用助手
  * @method static Search select(string $name,string $title)  下拉搜索
  * @method static Search input(string $name,string $title)  输入搜索
+ * @method static Search dateRang(string $name,string $title)  时间范围搜素
  */
 class Search
 {

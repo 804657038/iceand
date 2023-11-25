@@ -15,6 +15,8 @@ use think\facade\View;
  * @method Table width(int $val) 设置宽度
  * @method Table isedit(bool $val) 设置是否允许修改字段
  * @method Table templet(string $name,string $templetType='') 设置是否允许修改字段
+ * @method Table isimg(string $name) 设置图片预览
+ * @method Table isswitch(string $name) 设置开关
  * @package iceand
  */
 class Table
@@ -33,6 +35,12 @@ class Table
             $this->templet = $arguments[0];
             if(isset($arguments[1]))$this->templetType = $arguments[1];
 
+        }elseif($name == "isimg"){
+            $this->templet = "'#{$arguments[0]}'";
+            $this->templetType = "img";
+        }elseif($name == "isswitch"){
+            $this->templet = "'#{$arguments[0]}'";
+            $this->templetType = "StatusSwitchTpl";
         }else{
             $this->$name = count($arguments) == 1?$arguments[0]:$arguments;
         }
@@ -67,10 +75,33 @@ class Table
      * @return $this
      */
     public function hideButtonDel(){
-        View::assign('hideButtonAdd',true);
+        View::assign('hideButtonDel',true);
         return $this;
     }
-    public function template(){
+
+    /**
+     * @title 自定义行按钮
+     */
+    public function buttonList($data=[]){
+        $html = '';
+        foreach ($data as $val){
+            $html .= '<a class="layui-btn layui-btn-sm" data-event-dbclick data-title="'.$val['title'].'" data-modal="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
+        }
+        View::assign('button_list',$html);
+
+        return $this;
+    }
+
+    /**
+     * @title 自定义总按钮,变量是HTML代码
+     */
+    public function allBtn($tempte){
+        View::assign('allBtn',$tempte);
+    }
+    public function template($formType=""){
+        if($formType){
+            View::assign('formType',$formType);
+        }
         return dirname(__FILE__).'/view/table.html';
     }
     public function search($data):Table{

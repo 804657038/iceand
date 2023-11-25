@@ -12,9 +12,14 @@
 {if !isset($hideButtonAdd) }
 <button {if isset($formType) && $formType="open"}data-open='{:url("add")}'{else}data-modal='{:url("add")}'{/if} data-title="添加" class='layui-btn layui-btn-sm layui-btn-primary'>添加</button>
 {/if}
+{if isset($allBtn)}
+{$allBtn|raw}
+{/if}
 {/block}
 
 {block name="content"}
+
+
 <div class="layui-tab layui-tab-card">
     <div class="layui-tab-content">
         {if isset($search)}
@@ -36,8 +41,10 @@
                         {/if}
                         {/foreach}
                     </select>
+                    {elseif $val.type eq 'dateRang'}
+                    <input data-date-range name="{$val.name}" value="{:input($val['name'])}" placeholder="{:lang('请选择时间')}" class="layui-input">
                     {elseif $val.type eq 'input'}
-                    <input type="text" name="{$val.name}" value="{:input($val.name)}" class="layui-input">
+                    <input type="text" name="{$val.name}" value="{:input($val['name'])}" class="layui-input">
 
                     {/if}
                 </label>
@@ -132,6 +139,9 @@
     {/if}
     {if !isset($hideButtonDel) }
     <a class="layui-btn layui-btn-sm layui-btn-danger" data-confirm="{:lang('确定要永久删除吗？')}" data-action="{:url('remove')}" data-value="id#{{d.id}}">{:lang('删 除')}</a>
+    {/if}
+    {if isset($button_list)}
+    {$button_list|raw}
     {/if}
 </script>
 <script>
