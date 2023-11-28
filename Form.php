@@ -123,7 +123,7 @@ class Form
      * @return string
      */
     public function editor($item){
-        $value = htmlspecialchars_decode($item['value']);
+        $value = $item['value']?htmlspecialchars_decode($item['value']):'';
 $html = <<<EOT
 <textarea data-editor name="{$item['field']}" class="layui-textarea" placeholder="请输入数据内容">{$value}</textarea>
 
@@ -151,10 +151,22 @@ EOT;
      */
     public function date($item){
 $html = <<<EOT
-<input data-date-input name="{$item['field']}" value="{$item['value']}" placeholder="{:lang('请选择时间')}" class="layui-input">
+<input data-date-input name="{$item['field']}" value="{$item['value']}" placeholder="请选择时间" class="layui-input">
 EOT;
         return $html;
 
+    }
+
+    /**
+     * @title 时间范围旋转
+     * @param $item
+     * @return string
+     */
+    public function dateRange($item){
+        $html = <<<EOT
+<input data-date-range name="{$item['field']}" value="{$item['value']}" placeholder="请选择时间" class="layui-input">
+EOT;
+        return $html;
     }
     /**
      * @title 二级联动搜索

@@ -21,6 +21,7 @@ namespace iceand;
  * @method static FormItem linkage2(string $field, string $label) 二级联动select
  * @method static FormItem editor(string $field, string $label) 富文本编辑器
  * @method static FormItem date(string $field, string $label) 日期选择
+ * @method static FormItem dateRange(string $field, string $label) 日期范围选择
  */
 class FormItem
 {
@@ -49,12 +50,13 @@ class FormItem
         return $self;
     }
 
-    public function value($v){$this->value = $v;return $this;}
+    public function value($v){
+        $this->value = $v;return $this;
+    }
     public function required(){$this->required = true;return $this;}
     public function option(array $data = []){$this->option = $data;return $this;}
     public function help($help){$this->help = $help;return $this;}
     public function maxlenth($maxlenth){$this->maxlenth = $maxlenth;return $this;}
     public function ajaxUrl($url){$this->ajaxurl = $url;return $this;}
-
     public function param($val){$this->param = $val;return $this;}
 }
