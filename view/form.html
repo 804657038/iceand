@@ -7,7 +7,15 @@
             <fieldset class="layui-bg-gray">
                 <legend><b class="layui-badge think-bg-violet">表单信息</b></legend>
                 {foreach $field as $val}
-                <div class="layui-form-item">
+                {if $val['type']=='legend'}
+                <fieldset class="layui-elem-field layui-field-title" style="background: none;padding: 0;">
+                    <legend>{$val.label}</legend>
+                </fieldset>
+                {else}
+                {php}
+                $classname = $val['field'].' '.$val['class_name'];
+                {/php}
+                <div class="layui-form-item {$classname}" {if isset($val['hide'])}style="display:none;"{/if}>
                     <div class="help-label {if isset($val['required'])}label-required-prev{/if}"><b>{$val.label}</b></div>
                     <div class="layui-textarea help-checks">
                         {$val.view|raw}
@@ -16,7 +24,13 @@
                     {if isset($val['help'])}
                     <span class="help-block">{$val['help']}</span>
                     {/if}
+
+                    {if isset($val['script'])}
+                    {$val.script|raw}
+                    {/if}
                 </div>
+                {/if}
+
                 {/foreach}
             </fieldset>
         </div>
