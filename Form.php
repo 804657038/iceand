@@ -139,7 +139,7 @@ EOT;
      */
     public function img($item){
 $html = <<<EOT
-<input type="hidden" data-cut-width="500" data-cut-height="500" data-max-width="500" data-max-height="500" name="{$item['field']}" value="{$item['value']}">
+<input type="hidden" data-quality="0.5" name="{$item['field']}" value="{$item['value']}">
 <script>$('[name={$item['field']}]').uploadOneImage();</script>
 EOT;
         return $html;
