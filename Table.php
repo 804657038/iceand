@@ -36,6 +36,8 @@ class Table
             if(isset($arguments[1]))$this->templetType = $arguments[1];
 
         }elseif($name == "isimg"){
+
+
             $this->templet = "'#{$arguments[0]}'";
             $this->templetType = "img";
         }elseif($name == "isswitch"){
@@ -85,7 +87,17 @@ class Table
     public function buttonList($data=[]){
         $html = '';
         foreach ($data as $val){
-            $html .= '<a class="layui-btn layui-btn-sm" data-event-dbclick data-title="'.$val['title'].'" data-modal="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
+            if(isset($val['html'])){
+                $html .= $val['html'];
+
+            }else{
+                if(isset($val['open'])){
+                    $html .= '<a class="layui-btn layui-btn-primary layui-border-green layui-btn-sm" data-event-dbclick data-title="'.$val['title'].'" data-open="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
+                }else{
+                    $html .= '<a class="layui-btn layui-btn-primary layui-border-green layui-btn-sm" data-event-dbclick data-title="'.$val['title'].'" data-modal="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
+                }
+
+            }
         }
         View::assign('button_list',$html);
 
@@ -107,7 +119,7 @@ class Table
         }
         return dirname(__FILE__).'/view/table.html';
     }
-    public function search($data):Table{
+    public function search(array $data):Table{
         $arr = [];
         $resData = [];
         foreach ($data as $val){

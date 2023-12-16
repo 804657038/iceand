@@ -1,10 +1,7 @@
 {extend name='../../admin/view/table'}
 {block name="style"}
 <style>
-    .layui-table-cell{
-        height: auto;
-        min-height: 38px;
-    }
+
 </style>
 {/block}
 {block name="button"}
@@ -26,8 +23,85 @@
 
         <form class="layui-form layui-form-pane form-search" action="{:sysuri()}" onsubmit="return false" method="get" autocomplete="off">
             {foreach $search as $val}
+
             <div class="layui-form-item layui-inline">
                 <label class="layui-form-label">{$val.title}</label>
+                {if $val.type eq 'linkage3'}
+
+                <div class="layui-input-inline">
+                    <select name="{$val['param'][0]['field']}" lay-filter="{$val['param'][0]['field']}" lay-search="">
+                        <option value="">请选择</option>
+                        {foreach $val['option'] as $v}
+                        <option value="{$v['value']}">{$v['label']}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select name="{$val['param'][1]['field']}" lay-filter="{$val['param'][1]['field']}" lay-search="">
+                        <option value="">请选择</option>
+                    </select>
+                </div>
+
+                <div class="layui-input-inline">
+                    <select name="{$val['param'][2]['field']}" lay-filter="{$val['param'][2]['field']}" lay-search="">
+                        <option value="">请选择</option>
+                    </select>
+                </div>
+
+                <script>
+                    function ajaxlist{$val['name']}(pid,parent) {
+
+                        $.form.load('{$val['ajaxurl']}', {pid:pid}, "get", function(ret) {
+                            var field1 = '{$val['param'][1]['value']}'
+                            var field2 = '{$val['param'][2]['value']}'
+                            var field_value = 0;
+                            if(parent == 1){
+                                field_value = field1
+                            }else{
+                                field_value = field2
+                            }
+                            var h ='<option value="">请选择</option>'
+                            ret.info.forEach(function(val){
+                                if(field_value == val.value){
+                                    h +='<option value="'+val.value+'" selected>'+val.label+'</option>'
+                                }else{
+                                    h +='<option value="'+val.value+'">'+val.label+'</option>'
+                                }
+                            })
+                            if(parent == 1){
+                                $('[name="{$val['param'][1]['field']}"]').html(h)
+                                if(field_value){
+                                    ajaxlist{$val['name']}(field_value,2)
+                                }
+                            }else{
+                                $('[name="{$val['param'][2]['field']}"]').html(h)
+                            }
+                            layui.form.render('select');
+                            return false
+                        }, null, null, 'false');
+                    }
+                    $(function() {
+                        // 数据状态切换操作
+                        layui.form.on('select({$val['param'][0]['field']})', function (obj) {
+
+                            ajaxlist{$val['name']}(obj.value,1)
+
+                        });
+                        layui.form.on('select({$val['param'][1]['field']})', function (obj) {
+
+                            ajaxlist{$val['name']}(obj.value,2)
+
+                        });
+                        if($('[name="{$val['param'][0]['field']}"]').val()){
+                            ajaxlist{$val['name']}($('[name="{$val['param'][0]['field']}"]').val(),1)
+                        }
+
+                    })
+
+                </script>
+                {else}
+
+
                 <label class="layui-input-inline">
 
                     {if $val.type eq 'select'}
@@ -45,9 +119,9 @@
                     <input data-date-range name="{$val.name}" value="{:input($val['name'])}" placeholder="{:lang('请选择时间')}" class="layui-input">
                     {elseif $val.type eq 'input'}
                     <input type="text" name="{$val.name}" value="{:input($val['name'])}" class="layui-input">
-
                     {/if}
                 </label>
+                {/if}
             </div>
             {/foreach}
             <div class="layui-form-item layui-inline">
@@ -56,7 +130,7 @@
         </form>
         {/if}
 
-        <table id="listTable"  lay-filter="listTable" data-url="{:sysuri()}" data-target-search="form.form-search"></table>
+        <table id="listTable"  lay-filter="listTable" data-url="{:sysuri('',input('get.'))}" data-target-search="form.form-search"></table>
 
     </div>
 
@@ -151,6 +225,7 @@
         $('#listTable').layTable({
             even: true,
             height: 'full',
+            toolbar:true,
             sort:{},
             where:{},
             loading:false,
