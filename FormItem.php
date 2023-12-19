@@ -21,6 +21,7 @@ namespace iceand;
  * @method static FormItem select(string $field, string $label) 下拉选择
  * @method static FormItem textarea(string $field, string $label) 多行输入
  * @method static FormItem img(string $field, string $label) 单图上传
+ * @method static FormItem images(string $field, string $label) 多图上传
  * @method static FormItem linkage2(string $field, string $label) 二级联动select
  * @method static FormItem linkage3(string $field, string $label) 三级联动select
  * @method static FormItem editor(string $field, string $label) 富文本编辑器

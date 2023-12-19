@@ -29,7 +29,7 @@
                 {if $val.type eq 'linkage3'}
 
                 <div class="layui-input-inline">
-                    <select name="{$val['param'][0]['field']}" lay-filter="{$val['param'][0]['field']}">
+                    <select name="{$val['param'][0]['field']}" lay-filter="{$val['param'][0]['field']}" lay-search="">
                         <option value="">请选择</option>
                         {foreach $val['option'] as $v}
                         <option value="{$v['value']}">{$v['label']}</option>
@@ -37,13 +37,13 @@
                     </select>
                 </div>
                 <div class="layui-input-inline">
-                    <select name="{$val['param'][1]['field']}" lay-filter="{$val['param'][1]['field']}">
+                    <select name="{$val['param'][1]['field']}" lay-filter="{$val['param'][1]['field']}" lay-search="">
                         <option value="">请选择</option>
                     </select>
                 </div>
 
                 <div class="layui-input-inline">
-                    <select name="{$val['param'][2]['field']}" lay-filter="{$val['param'][2]['field']}">
+                    <select name="{$val['param'][2]['field']}" lay-filter="{$val['param'][2]['field']}" lay-search="">
                         <option value="">请选择</option>
                     </select>
                 </div>
@@ -225,6 +225,7 @@
         $('#listTable').layTable({
             even: true,
             height: 'full',
+            toolbar:true,
             sort:{},
             where:{},
             loading:false,

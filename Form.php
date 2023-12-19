@@ -52,7 +52,8 @@ class Form
             $disabled = "disabled";
         }
 
-        $html ='<select name="'.$item['field'].'" '.$disabled.' lay-filter="'.$item['field'].'" '.$required.'>';
+        $html ='<select name="'.$item['field'].'" '.$disabled.' lay-filter="'.$item['field'].'" '.$required.' lay-search="">';
+
         foreach ($item['option'] as $val){
 
             if($item['value'] == $val['value']){
@@ -197,7 +198,6 @@ EOT;
             $html = <<<EOT
 <img src="{$item['value']}" width="80">
 EOT;
-
         }else{
             $html = <<<EOT
 <input type="hidden" data-quality="0.5" name="{$item['field']}" value="{$item['value']}">
@@ -207,7 +207,19 @@ EOT;
 
         return $html;
     }
+    /**
+     * @title 多图片上传
+     * @param ['type'=>'','label'=>'字段名称','field'=>'字段','value'=>'值','required'=>'是否必填']
+     * @return string
+     */
+    public function images($item){
 
+        $html = <<<EOT
+<input type="hidden" data-quality="0.5" name="{$item['field']}" value="{$item['value']}">
+<script>$('[name={$item['field']}]').uploadMultipleImage();</script>
+EOT;
+        return $html;
+    }
     /**
      * @title 日期选择插件
      * @param $item
@@ -258,7 +270,7 @@ EOT;
     public function linkage2($item){
         $html = '<div class="layui-input-inline">';
 
-        $html .='<select name="'.$item['param'][0]['field'].'" lay-filter="'.$item['param'][0]['field'].'">';
+        $html .='<select name="'.$item['param'][0]['field'].'" lay-filter="'.$item['param'][0]['field'].'" lay-search="">';
         $html .='<option value="">请选择</option>';
         foreach ($item['option'] as $val){
             if($item['param'][0]['value'] == $val['value']){
@@ -271,7 +283,7 @@ EOT;
 
         $html .='</div>';
         $html .= '<div class="layui-input-inline">';
-        $html .='<select name="'.$item['param'][1]['field'].'" lay-filter="'.$item['param'][1]['field'].'">';
+        $html .='<select name="'.$item['param'][1]['field'].'" lay-filter="'.$item['param'][1]['field'].'" lay-search="">';
         $html .='<option value="">请选择</option>';
         $html .='</select>';
 
@@ -328,7 +340,7 @@ EOT;
     public function linkage3($item){
         $html = '<div class="layui-input-inline">';
 
-        $html .='<select name="'.$item['param'][0]['field'].'" lay-filter="'.$item['param'][0]['field'].'">';
+        $html .='<select name="'.$item['param'][0]['field'].'" lay-filter="'.$item['param'][0]['field'].'" lay-search="">';
         $html .='<option value="">请选择</option>';
         foreach ($item['option'] as $val){
             if($item['param'][0]['value'] == $val['value']){
@@ -342,14 +354,14 @@ EOT;
         $html .='</div>';
 
         $html .= '<div class="layui-input-inline">';
-        $html .='<select name="'.$item['param'][1]['field'].'" lay-filter="'.$item['param'][1]['field'].'">';
+        $html .='<select name="'.$item['param'][1]['field'].'" lay-filter="'.$item['param'][1]['field'].'" lay-search="">';
         $html .='<option value="">请选择</option>';
         $html .='</select>';
 
         $html .='</div>';
 
         $html .= '<div class="layui-input-inline">';
-        $html .='<select name="'.$item['param'][2]['field'].'" lay-filter="'.$item['param'][2]['field'].'">';
+        $html .='<select name="'.$item['param'][2]['field'].'" lay-filter="'.$item['param'][2]['field'].'" lay-search="">';
         $html .='<option value="">请选择</option>';
         $html .='</select>';
 
