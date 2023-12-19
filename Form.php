@@ -51,8 +51,10 @@ class Form
         if(isset($item['disabled']) && $item['disabled'] === true){
             $disabled = "disabled";
         }
+
         $html ='<select name="'.$item['field'].'" '.$disabled.' lay-filter="'.$item['field'].'" '.$required.'>';
         foreach ($item['option'] as $val){
+
             if($item['value'] == $val['value']){
                 $html .='<option value="'.$val['value'].'" selected>'.$val['label'].'</option>';
             }else{
@@ -449,6 +451,8 @@ EOT;
         }
         return $html;
     }
+    public function addBtnTitle($name){
+    }
     public static function template($field = [],$formType=""){
 
         foreach ($field as &$val){
@@ -466,6 +470,7 @@ EOT;
             View::assign('formType',$formType);
         }
         View::assign('field',$field);
+
         return dirname(__FILE__).'/view/form.html';
     }
 

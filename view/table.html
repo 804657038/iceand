@@ -219,7 +219,7 @@
     {/if}
 </script>
 <script>
-    cols.push({toolbar: '#toolbar', title: '{:lang("操作面板")}', align: 'center', minWidth: 180, fixed: 'right'})
+    cols.push({toolbar: '#toolbar', title: '{:lang("操作面板")}', align: 'center', minWidth: '{$actionminwidth}', fixed: 'right'})
 
     $(function () {
         $('#listTable').layTable({

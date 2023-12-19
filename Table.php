@@ -113,10 +113,11 @@ class Table
         return $this;
 
     }
-    public function template($formType=""){
+    public function template($formType="",$actionMinWidth = 180){
         if($formType){
             View::assign('formType',$formType);
         }
+        View::assign('actionminwidth',$actionMinWidth);
         return dirname(__FILE__).'/view/table.html';
     }
     public function search(array $data):Table{
