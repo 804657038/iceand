@@ -6,7 +6,7 @@
  * Date: 2023/9/27
  * Time: 17:20
  */
-
+namespace iceand;
 class Headimg
 {
 

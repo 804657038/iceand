@@ -6,6 +6,7 @@
  * Time: 21:36
  */
 
+namespace iceand;
 
 use think\exception\HttpResponseException;
 

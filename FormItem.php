@@ -30,6 +30,7 @@ namespace iceand;
  * @method static FormItem dateRange(string $field, string $label) 日期范围选择
  * @method static FormItem legend(string $field, string $label) 字块集
  * @method static FormItem inlineInput(string $field, string $label) 一行多个输入框
+ * @method static FormItem txmap(string $field, string $label) 腾讯地图
  */
 class FormItem
 {
