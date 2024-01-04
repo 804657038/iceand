@@ -18,22 +18,23 @@ class Float
      * @param $item
      * @return string
      */
-    public function main($item){
-        $maxlenth ="";
-        if(isset($item['maxlenth']) && abs($item['maxlenth'])>0){
+    public function main($item)
+    {
+        $maxlenth = "";
+        if (isset($item['maxlenth']) && abs($item['maxlenth']) > 0) {
             $maxlenth = "maxlength='{$item['maxlenth']}'";
         }
 
         $required = "";
-        if(isset($item['required'])){
+        if (isset($item['required'])) {
             $required = "required";
         }
         $disabled = "";
-        if(isset($item['disabled']) && $item['disabled'] === true){
+        if (isset($item['disabled']) && $item['disabled'] === true) {
             $disabled = "disabled";
         }
 
-        $html = '<input oninput="value=value.replace(/[^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)]/g,\'\')" type="number" '.$maxlenth.' '.$disabled.' '.$required.' name="'.$item['field'].'"  value="'.$item['value'].'" placeholder="请输入..." class="layui-input">';
+        $html = '<input oninput="value=value.replace(/[^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)]/g,\'\')" type="number" ' . $maxlenth . ' ' . $disabled . ' ' . $required . ' name="' . $item['field'] . '"  value="' . $item['value'] . '" placeholder="请输入..." class="layui-input">';
         return $html;
-
+    }
 }
