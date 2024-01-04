@@ -9,7 +9,7 @@
 namespace iceand\field;
 
 
-class Float
+class Floating
 {
 
     /**
