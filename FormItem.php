@@ -76,7 +76,8 @@ class FormItem
     public function param($val){$this->param = $val;return $this;}
     public function disabled(bool $val){$this->disabled = $val;return $this;}
     public function className(string $val){$this->class_name = $val;return $this;}
-    public function hide(){$this->hide = true;return $this;}
+    public function hide(bool $val){$this->hide = $val;return $this;}
+
     public function showhide(array $val,$common=''){
         $tyle_field = "";
         switch ($this->type){

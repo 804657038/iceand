@@ -18,7 +18,7 @@ class Textarea
      * @param $item
      * @return string
      */
-    public function amin($item){
+    public function main($item){
         $maxlenth = "";
         if(isset($item['maxlenth']) && abs($item['maxlenth'])>0){
             $maxlenth = "maxlength='{$item['maxlenth']}'";

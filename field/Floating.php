@@ -34,7 +34,7 @@ class Floating
             $disabled = "disabled";
         }
 
-        $html = '<input oninput="value=value.replace(/[^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)]/g,\'\')" type="number" ' . $maxlenth . ' ' . $disabled . ' ' . $required . ' name="' . $item['field'] . '"  value="' . $item['value'] . '" placeholder="请输入..." class="layui-input">';
+        $html = '<input pattern="\d*" type="number" ' . $maxlenth . ' ' . $disabled . ' ' . $required . ' name="' . $item['field'] . '"  value="' . $item['value'] . '" placeholder="请输入..." class="layui-input">';
         return $html;
     }
 }
