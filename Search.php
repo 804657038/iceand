@@ -22,7 +22,26 @@ class Search
 {
     public $ajaxurl;
     public $param;
+    private $_dynamicProperty = array();
+    public function __get($name) {
+        //判断是否存在该属性对应键名
+        if (array_key_exists($name, $this->_dynamicProperty)) {
+            return $this->_dynamicProperty[$name];
+        }
+        return NULL;
+    }
 
+    //写入数组，属性名即为数组键名
+    public function __set($name, $value) {
+        //将原本的属性名写入数组键名，调用的时候利用__get()方法直接去数组里获取
+        $this->_dynamicProperty[$name] = $value;
+    }
+
+    //属性都存储在_dynamicProperty中，那么各应用模块中如果要用到isset时就需要调用本魔术方法
+    //否则类似isset($obj->num)的操作去判断属性是否存在将会失败
+    public function __isset($name) {
+        return isset($this->_dynamicProperty[$name]);
+    }
     /**
      * 静态魔术方法
      * @param string $method 方法名称
