@@ -218,8 +218,13 @@
     {$button_list|raw}
     {/if}
 </script>
+        {if $actionminwidth != 'none'}
+        <script>
+            cols.push({toolbar: '#toolbar', title: '{:lang("操作面板")}', align: 'center', minWidth: '{$actionminwidth}', fixed: 'right'})
+
+        </script>
+        {/if}
 <script>
-    cols.push({toolbar: '#toolbar', title: '{:lang("操作面板")}', align: 'center', minWidth: '{$actionminwidth}', fixed: 'right'})
 
     $(function () {
         $('#listTable').layTable({
