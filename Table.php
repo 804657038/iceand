@@ -146,7 +146,7 @@ class Table
         $arr = [];
         $resData = [];
         foreach ($data as $val){
-            $vars = get_object_vars($val)['_dynamicProperty'];
+            $vars = get_object_vars($val);
             $item = [];
             foreach ($vars as $k=>$v){
                 if($v) $item[$k]=$v;

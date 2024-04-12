@@ -34,6 +34,8 @@ namespace iceand;
  */
 class FormItem
 {
+    public $name;
+    public $title;
     public $type;
     public $label;
     public $field;
