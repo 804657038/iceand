@@ -13,7 +13,13 @@
                 </fieldset>
                 {else}
                 {php}
+                if($val['class_name']){
+                $classname = $val['class_name'];
+                }else{
                 $classname = $val['field'].' '.$val['class_name'];
+
+                }
+
                 {/php}
                 <div class="layui-form-item {$classname}" {if isset($val['hide'])}style="display:none;"{/if}>
                     <div class="help-label {if isset($val['required'])}label-required-prev{/if}"><b>{$val.label}</b></div>

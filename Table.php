@@ -102,7 +102,11 @@ class Table
         View::assign('hideButtonDel',true);
         return $this;
     }
+    public function setTableId($id){
+        View::assign('tableId',$id);
+        return $this;
 
+    }
     /**
      * @title 自定义行按钮
      */
@@ -156,7 +160,19 @@ class Table
         View::assign("search",$resData);
         return $this;
     }
+    public function setheight($val){
+        $style = <<<EOT
+<style>
+.layui-table-body .layui-table-cell{
+height:{$val}px !important;
 
+
+}
+</style>
+EOT;
+        View::assign("heightstyle",$style);
+        return $this;
+    }
     /**
      * @param $data
      * @return Table

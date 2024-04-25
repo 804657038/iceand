@@ -1,8 +1,9 @@
 {extend name='../../admin/view/table'}
 {block name="style"}
-<style>
+{if isset($heightstyle)}
+{$heightstyle|raw}
 
-</style>
+{/if}
 {/block}
 {block name="button"}
 
