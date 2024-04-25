@@ -130,8 +130,15 @@
             </div>
         </form>
         {/if}
+        {php}
+        if(isset($tableId)){
+            $tid = $tableId;
+        }else{
+            $tid = "listTable";
 
-        <table id="listTable"  lay-filter="listTable" data-url="{:sysuri('',input('get.'))}" data-target-search="form.form-search"></table>
+        }
+        {/php}
+        <table id="{$tid}"  lay-filter="listTable" data-url="{:sysuri('',input('get.'))}" data-target-search="form.form-search"></table>
 
     </div>
 
