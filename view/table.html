@@ -235,7 +235,7 @@
 <script>
 
     $(function () {
-        $('#listTable').layTable({
+        $('#{$tid}').layTable({
             even: true,
             height: 'full',
             toolbar:true,
@@ -247,7 +247,7 @@
 
             }
         })
-        $('#listTable').trigger('edit', function (item) {
+        $('#{$tid}').trigger('edit', function (item) {
 
             $.form.load('{:url("editField")}', {
                 id:item.data.id,
