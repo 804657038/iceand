@@ -109,7 +109,7 @@
                     <select name="{$val.name}" lay-search class="layui-select">
                         <option value=''>-- {:lang('全部')} --</option>
                         {foreach $val.option as $v}
-                        {if $v.value eq input($val.name)}
+                        {if ($v.value eq input($val.name)) && input($val.name)!==null}
                         <option selected value="{$v.value|default=''}">{$v.label|default=''}</option>
                         {else}
                         <option value="{$v.value|default=''}">{$v.label|default=''}</option>
