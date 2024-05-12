@@ -4,12 +4,20 @@
 {$heightstyle|raw}
 
 {/if}
+<style>
+    .text-btn{
+        color: #1E9FFF;
+        margin: 0 5px;
+    }
+</style>
 {/block}
+
 {block name="button"}
 
 {if !isset($hideButtonAdd) }
 <button {if isset($formType) && $formType="open"}data-open='{:url("add")}'{else}data-modal='{:url("add")}'{/if} data-title="添加" class='layui-btn layui-btn-sm layui-btn-primary'>添加</button>
 {/if}
+
 {if isset($allBtn)}
 {$allBtn|raw}
 {/if}
@@ -215,7 +223,7 @@
 {/if}
 {/foreach}
 
-<script type="text/html" id="toolbar">
+<script type="text/html" id="{$tid}toolbar">
     {if !isset($hideButtonAdd) }
     <a class="layui-btn layui-btn-sm" data-event-dbclick data-title="{:lang('编辑')}" {if isset($formType) && $formType="open"}data-open='{:url("edit")}?id={{d.id}}'{else}data-modal='{:url("edit")}?id={{d.id}}'{/if}>{:lang('编 辑')}</a>
     {/if}
@@ -228,14 +236,14 @@
 </script>
         {if $actionminwidth != 'none'}
         <script>
-            cols.push({toolbar: '#toolbar', title: '{:lang("操作面板")}', align: 'center', minWidth: '{$actionminwidth}', fixed: 'right'})
+            cols.push({toolbar: '#{$tid}toolbar', title: '{:lang("操作面板")}', align: 'center', minWidth: '{$actionminwidth}', fixed: 'right'})
 
         </script>
         {/if}
 <script>
-
+    var tableIns
     $(function () {
-        $('#{$tid}').layTable({
+        tableIns = $('#{$tid}').layTable({
             even: true,
             height: 'full',
             toolbar:true,
@@ -247,6 +255,7 @@
 
             }
         })
+        
         $('#{$tid}').trigger('edit', function (item) {
 
             $.form.load('{:url("editField")}', {
@@ -270,5 +279,9 @@
 
         });
     })
+    function shuaxin() {
+
+        $.layTable.reload('{$tid}')
+    }
 </script>
 {/block}

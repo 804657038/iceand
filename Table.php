@@ -117,12 +117,20 @@ class Table
                 $html .= $val['html'];
 
             }else{
-                if(isset($val['open'])){
-                    $html .= '<a class="layui-btn layui-btn-primary layui-border-green layui-btn-sm" data-event-dbclick data-title="'.$val['title'].'" data-open="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
-                }else{
-                    $html .= '<a class="layui-btn layui-btn-primary layui-border-green layui-btn-sm" data-event-dbclick data-title="'.$val['title'].'" data-modal="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
+                if(isset($val['condition'])){
+                    $html .='{{# if('.$val['condition'].')}{  }';
                 }
-
+                if(isset($val['open'])){
+                    $html .= '<a class="text-btn" data-event-dbclick data-title="'.$val['title'].'" data-open="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
+                }else{
+                    $html .= '<a class="text-btn" data-event-dbclick data-title="'.$val['title'].'" data-modal="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
+                }
+                if(isset($val['condition'])){
+                    $html.= '{{# } }}';
+                }
+            }
+            if(isset($val['is_break'])){
+                $html .='<br/>';
             }
         }
         View::assign('button_list',$html);
