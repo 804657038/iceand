@@ -118,7 +118,7 @@ class Table
 
             }else{
                 if(isset($val['condition'])){
-                    $html .='{{# if('.$val['condition'].')}{  }';
+                    $html .='{{# if('.$val['condition'].'){  }}';
                 }
                 if(isset($val['open'])){
                     $html .= '<a class="text-btn" data-event-dbclick data-title="'.$val['title'].'" data-open="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
