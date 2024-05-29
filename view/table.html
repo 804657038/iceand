@@ -152,9 +152,10 @@
 
 </div>
 <script>
-    var util
-    layui.use(['util'],function () {
-        util = layui.util
+    var util,table
+    layui.use(['util','table'],function () {
+        util = layui.util;
+        table = layui.table
     })
     function apiFormat(d){
         return util.escape(d.api);
@@ -173,6 +174,16 @@
 
 {foreach $tableHeader as $val}
 
+
+{if isset($val.ischeckbox)}
+<script>
+
+    var item = {
+        type:'checkbox'
+    }
+</script>
+{else}
+
 <script>
 
     var item = {
@@ -180,6 +191,7 @@
         title:'{$val.title}',
     }
 </script>
+{/if}
 {if isset($val.width)}
 <script>
     item['width'] = parseInt('{$val.width}');
@@ -256,8 +268,9 @@
             }
         })
         
-        $('#{$tid}').trigger('edit', function (item) {
 
+
+        layui.form.on('edit({$tid})', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
             $.form.load('{:url("editField")}', {
                 id:item.data.id,
                 field:item.field,
@@ -265,9 +278,8 @@
             }, "post", function (ret) {
 
             }, null, null, 'false');
+        });
 
-
-        })
 
         // 数据状态切换操作
         layui.form.on('switch(StatusSwitch)', function (obj) {
@@ -282,6 +294,11 @@
     function shuaxin() {
 
         $.layTable.reload('{$tid}')
+    }
+    function getchecklist() {
+
+       var i = table.checkStatus('{$tid}')
+       return i
     }
 </script>
 {/block}

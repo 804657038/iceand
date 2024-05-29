@@ -17,6 +17,7 @@ use think\facade\View;
  * @method Table templet(string $name,string $templetType='') 设置是否允许修改字段
  * @method Table isimg(string $name) 设置图片预览
  * @method Table isswitch(string $name) 设置开关
+ * @method Table ischeckbox(bool $val) 是否显示复选框
 
  * @package iceand
  */
