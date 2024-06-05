@@ -49,6 +49,28 @@ class Form
     }
 
     /**
+     * 设置tabs
+     * @param $arr
+     * @return string
+     */
+    public static function tabs($arr,$formType=''){
+        $header = [];
+        foreach ($arr as $val){
+            $header[]=[
+                'field'=>$val['field'],
+                'title'=>$val['title'],
+            ];
+        }
+
+        View::assign('header',$header);
+        View::assign('lists',$arr);
+        if($formType){
+            View::assign('formType',$formType);
+        }
+        return dirname(__FILE__).'/view/tabform.html';
+
+    }
+    /**
      * @title 初始化表单
      * @param $data
      * @return array
@@ -73,6 +95,9 @@ class Form
                     $item['value'] = $value[$item['field']];
                 }
             }
+            $method = $item['type'];
+
+            $item['view'] = (new self())->$method($item);
             $resData[]=$item;
         }
         return $resData;

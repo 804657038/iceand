@@ -1,0 +1,90 @@
+<style>
+    .columns {
+        display: flex;
+    }
+
+</style>
+<div class="layui-tab-content">
+    <form action="{:sysuri()}" method="post" data-auto="true" class="layui-form layui-card" data-table-id="UserTable">
+        <div class="layui-card-body padding-left-40">
+            <fieldset class="layui-bg-gray">
+                <legend><b class="layui-badge think-bg-violet">表单信息</b></legend>
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        {foreach $header as $k=>$val}
+                        <li {if $k eq 0}class="layui-this"{/if}>{$val.title}</li>
+
+                        {/foreach}
+
+                    </ul>
+
+                    <div class="layui-tab-content">
+                        {foreach $lists as $k=>$item}
+                        <div class="layui-tab-item {if $k eq 0}layui-show{/if}">
+                            {foreach $item['lists'] as $val}
+                            {if $val['type']=='legend'}
+                            <fieldset class="layui-elem-field layui-field-title" style="background: none;padding: 0;">
+                                <legend>{$val.label}</legend>
+                            </fieldset>
+                            {else}
+                            {php}
+                            if($val['class_name']){
+                            $classname = $val['class_name'];
+                            }else{
+                            $classname = $val['field'].' '.$val['class_name'];
+
+                            }
+
+                            {/php}
+                            <div class="layui-form-item {$classname}" {if isset($val['hide'])}style="display:none;"{/if}>
+                            <div class="help-label {if isset($val['required'])}label-required-prev{/if}"><b>{$val.label}</b></div>
+                            <div class="layui-textarea help-checks">
+                                {$val.view|raw}
+                            </div>
+
+                            {if isset($val['help'])}
+                            <span class="help-block">{$val['help']}</span>
+                            {/if}
+
+                            {if isset($val['script'])}
+                            {$val.script|raw}
+                            {/if}
+                        </div>
+                        {/if}
+
+                        {/foreach}
+                        </div>
+                        {/foreach}
+                    </div>
+                </div>
+
+        </fieldset>
+</div>
+
+<div class="hr-line-dashed"></div>
+{notempty name='vo.id'}<input type='hidden' value='{$vo.id}' name='id'>{/notempty}
+<div class="layui-form-item text-center">
+    <button class="layui-btn" type='submit'>保存数据</button>
+    <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？"  {if isset($formType) && $formType="open"}data-history-back{else}data-close{/if}>取消编辑</button>
+</div>
+<div style="height: 50px;"></div>
+</form>
+</div>
+
+<script>
+    require(['ckeditor'], function () {
+        /*! 初始化 富文本插件 */
+        (function initTextArea() {
+
+            $('textarea[data-editor]').map(function () {
+
+                if (!$(this).attr('inited')) {
+                    $(this).attr('inited', true);
+                    window.createEditor('[name='+$(this).attr('name')+']', {height: 150})
+                }
+            });
+            setTimeout(initTextArea, 100);
+        })();
+    });
+
+</script>

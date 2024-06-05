@@ -9,6 +9,9 @@
         color: #1E9FFF;
         margin: 0 5px;
     }
+    .x-red{
+        color: red;
+    }
 </style>
 {/block}
 
@@ -111,7 +114,7 @@
                 {else}
 
 
-                <label class="layui-input-inline">
+                <div class="layui-input-inline">
 
                     {if $val.type eq 'select'}
                     <select name="{$val.name}" lay-search class="layui-select">
@@ -126,10 +129,26 @@
                     </select>
                     {elseif $val.type eq 'dateRang'}
                     <input data-date-range name="{$val.name}" value="{:input($val['name'])}" placeholder="{:lang('请选择时间')}" class="layui-input">
+                    {elseif $val.type eq 'condition'}
+                    <div style="display: flex;">
+                        <div style="width: 80px;">
+                            <select name="{$val.name}[condition]">
+                                <option value="=" selected>=</option>
+                                <option value=">"> > </option>
+                                <option value=">="> >= </option>
+                                <option value="<"> < </option>
+                                <option value="<="> <= </option>
+                            </select>
+                        </div>
+
+                        <input type="text" name="{$val.name}[value]" value="" placeholder="条件" class="layui-input">
+                    </div>
+
+
                     {elseif $val.type eq 'input'}
                     <input type="text" name="{$val.name}" value="{:input($val['name'])}" class="layui-input">
                     {/if}
-                </label>
+                </div>
                 {/if}
             </div>
             {/foreach}
@@ -237,10 +256,10 @@
 
 <script type="text/html" id="{$tid}toolbar">
     {if !isset($hideButtonAdd) }
-    <a class="layui-btn layui-btn-sm" data-event-dbclick data-title="{:lang('编辑')}" {if isset($formType) && $formType="open"}data-open='{:url("edit")}?id={{d.id}}'{else}data-modal='{:url("edit")}?id={{d.id}}'{/if}>{:lang('编 辑')}</a>
+    <a class="text-btn " data-event-dbclick data-title="{:lang('编辑')}" {if isset($formType) && $formType="open"}data-open='{:url("edit")}?id={{d.id}}'{else}data-modal='{:url("edit")}?id={{d.id}}'{/if}>{:lang('编 辑')}</a>
     {/if}
     {if !isset($hideButtonDel) }
-    <a class="layui-btn layui-btn-sm layui-btn-danger" data-confirm="{:lang('确定要永久删除吗？')}" data-action="{:url('remove')}" data-value="id#{{d.id}}">{:lang('删 除')}</a>
+    <a class="text-btn  x-red" data-confirm="{:lang('确定要永久删除吗？')}" data-action="{:url('remove')}" data-value="id#{{d.id}}">{:lang('删 除')}</a>
     {/if}
     {if isset($button_list)}
     {$button_list|raw}
@@ -264,7 +283,6 @@
             loading:false,
             cols:[cols],
             done:function (r) {
-
             }
         })
         

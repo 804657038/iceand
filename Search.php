@@ -17,6 +17,7 @@ namespace iceand;
  * @method static Search input(string $name,string $title)  输入搜索
  * @method static Search dateRang(string $name,string $title)  时间范围搜素
  * @method static Search linkage3(string $name,string $title)  时间范围搜素
+ * @method static Search condition(string $name,string $title)  条件搜素
  */
 class Search
 {

@@ -32,6 +32,8 @@ namespace iceand;
  * @method static FormItem Text(string $field, string $label) 显示内容而已
  * @method static FormItem inlineInput(string $field, string $label) 一行多个输入框
  * @method static FormItem txmap(string $field, string $label) 腾讯地图
+ * @method static FormItem jsoneditor(string $field, string $label) JSON编辑器
+ * @method static FormItem multiline(string $field, string $label) 多行文本输入
  */
 class FormItem
 {
@@ -52,6 +54,9 @@ class FormItem
     public $class_name="";
     public $hide = false;
     public $script;
+    public $multiline;  //多行文本设置
+    public $mine = "";
+
     /**
      * 静态魔术方法
      * @param string $method 方法名称
@@ -80,6 +85,8 @@ class FormItem
     public function disabled(bool $val){$this->disabled = $val;return $this;}
     public function className(string $val){$this->class_name = $val;return $this;}
     public function hide(bool $val){$this->hide = $val;return $this;}
+    public function multilines(array $val){$this->multiline = $val;return $this;}
+    public function mine($mine){$this->mine = $mine;return $this;}
 
     public function showhide(array $val,$common=''){
         $tyle_field = "";
