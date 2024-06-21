@@ -26,9 +26,12 @@ class Checkbox
         if(isset($item['disabled']) && $item['disabled'] === true){
             $disabled = "disabled";
         }
+        if(!isset($item['option'])){
+            $item['option'] = [];
+        }
         foreach ($item['option'] as $ke=>$val){
             $html .='<label class="think-checkbox">';
-            if(in_array($val['value'],$item['value'])){
+            if($item['value'] && in_array($val['value'],$item['value'])){
                 $html .='<input '.$required.' '.$disabled.' type="checkbox" checked name="'.$item['field'].'['.$ke.']" value="'.$val['value'].'" lay-ignore lay-filter="'.$item['field'].'">'.$val['label'];
             }else{
                 $html .='<input '.$required.' '.$disabled.' type="checkbox" name="'.$item['field'].'['.$ke.']" value="'.$val['value'].'" lay-ignore lay-filter="'.$item['field'].'">'.$val['label'];

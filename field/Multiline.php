@@ -12,7 +12,42 @@ namespace iceand\field;
  * 自定义多行文本输入
  * Class Multiline
  * @package iceand\field
+ * @deprecated 使用示例
+ *
  */
+//$tablelist = '';
+//foreach ($viewing as $k=>$val){
+//    $tablelist .='<tr>';
+//    $tablelist .='<td>';
+//    $tablelist .='<select name="viewing['.$k.'][platform]">';
+//    foreach ($platformlist_option as $v){
+//        if($v['value'] == $val['platform']){
+//            $selected = "selected";
+//        }else{
+//            $selected = "";
+//        }
+//        $tablelist .='<option value="'.$v['value'].'" '.$selected.'>'.$v['label'].'</option>';
+//    }
+//    $tablelist .='</select>';
+//    $tablelist .='</td>';
+//    $tablelist .='<td>';
+//    $tablelist .='<input name="viewing['.$k.'][num]" class="layui-input" value="'.$val['num'].'">';
+//    $tablelist .='</td>';
+//    $tablelist .='<td> <a href="javascript:;" style="color:red;" onclick="$(this).parent().parent().remove()">删除</a> </td>';
+//    $tablelist .='</tr>';
+//}
+//FormItem::multiline('viewing','观看逻辑')->multilines([
+//    [
+//        'field'=>'platform',
+//        'title'=>'平台',
+//        'type'=>'select',
+//        'option'=>$platformlist_option
+//    ],[
+//        'field'=>'num',
+//        'title'=>'观看数量',
+//        'type'=>'number',
+//    ]
+//])->value($tablelist)
 class Multiline
 {
     public function main($item){
@@ -24,44 +59,51 @@ class Multiline
         }
         $tablehead .= "<td>操作</td></tr>";
         $tablelist = $item['value'];
-
-
+        if(!isset($item['disabled'])){
+            $btn = <<<EOT
+<button type="button" class="layui-btn layui-btn-sm {$item['field']}_btn" data-title="添加">添加</button>
+EOT;
+;
+        }else{
+            $btn = '';
+        }
 
         $json = json_encode($item['multiline'],256);
 $html = <<<EOT
-<button type="button" class="layui-btn layui-btn-sm {$item['field']}_btn" data-title="添加">添加</button>
+{$btn}
 <table class="layui-table {$item['field']}_table">
 <thead>{$tablehead}</thead>
 <tbody>{$tablelist}</tbody>
 </table>
 <script>
-   var json = JSON.parse('{$json}')
-   console.log(json)
+   var {$item['field']}json = JSON.parse('{$json}')
    var btn_class = '{$item['field']}_btn';
-   var table_class = '{$item['field']}_table'
-   $('.'+btn_class).on('click',function() {
-     var html = `<tr>`
 
-     var index = $('.'+table_class+' tbody').find('tr').length
+   var table_class = '{$item['field']}_table'
+   $('.{$item['field']}_btn').on('click',function() {
+  
+     var {$item['field']}html = `<tr>`
+
+     var {$item['field']}index = $('.{$item['field']}_table tbody').find('tr').length
      
-     json.forEach((item)=>{
+     {$item['field']}json.forEach((item)=>{
          var formItem = ''
          if(item.type == 'select'){
-             formItem +="<select name='{$item['field']}["+index+"]["+item.field+"]'>"
+             formItem +="<select name='{$item['field']}["+{$item['field']}index+"]["+item.field+"]'>"
              item.option.forEach((val)=>{
                  formItem +='<option value="'+val.value+'">'+val.label+'</option>'
              })
              formItem +="</select>"
          }else{
-            formItem = "<input type='"+item.type+"' name='{$item['field']}["+index+"]["+item.field+"]' class='layui-input'>" 
+            formItem = "<input type='"+item.type+"' name='{$item['field']}["+{$item['field']}index+"]["+item.field+"]' class='layui-input'>" 
          }
-         html +='<td>'+formItem+'</td>'
+         {$item['field']}html +='<td>'+formItem+'</td>'
          
      })
-     html +='<td> <a href="javascript:;" style="color:red;" onclick="$(this).parent().parent().remove()">删除</a> </td>'
+     {$item['field']}html +='<td> <a href="javascript:;" style="color:red;" onclick="$(this).parent().parent().remove()">删除</a> </td>'
      
-     html +=`</tr>`
-     $('.'+table_class+' tbody').append(html)
+     {$item['field']}html +=`</tr>`
+     $('.{$item['field']}_table tbody').append({$item['field']}html)
      layui.form.render('select');
      
    })

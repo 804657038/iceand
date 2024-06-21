@@ -114,25 +114,39 @@ class Table
     public function buttonList($data=[]){
         $html = '';
         foreach ($data as $val){
-            if(isset($val['html'])){
-                $html .= $val['html'];
+            if(isset($val['more'])){
+                $html .= '<div class="text-btn morediv">更多...<div class="merchild">';
+                foreach ($val['child'] as $v){
+                    if(isset($v['open'])){
+                        $html .= '<div class="text-btn" data-event-dbclick data-title="'.$v['title'].'" data-open="'.$v['url'].'?id={{d.id}}">'.$v['title'].'</div>';
+                    }else{
+                        $html .= '<div class="text-btn" data-event-dbclick data-title="'.$v['title'].'" data-modal="'.$v['url'].'?id={{d.id}}">'.$v['title'].'</div>';
+                    }
+                }
 
+                $html .='</div></div>';
             }else{
-                if(isset($val['condition'])){
-                    $html .='{{# if('.$val['condition'].'){  }}';
-                }
-                if(isset($val['open'])){
-                    $html .= '<a class="text-btn" data-event-dbclick data-title="'.$val['title'].'" data-open="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
+                if(isset($val['html'])){
+                    $html .= $val['html'];
+
                 }else{
-                    $html .= '<a class="text-btn" data-event-dbclick data-title="'.$val['title'].'" data-modal="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
+                    if(isset($val['condition'])){
+                        $html .='{{# if('.$val['condition'].'){  }}';
+                    }
+                    if(isset($val['open'])){
+                        $html .= '<a class="text-btn" data-event-dbclick data-title="'.$val['title'].'" data-open="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
+                    }else{
+                        $html .= '<a class="text-btn" data-event-dbclick data-title="'.$val['title'].'" data-modal="'.$val['url'].'?id={{d.id}}">'.$val['title'].'</a>';
+                    }
+                    if(isset($val['condition'])){
+                        $html.= '{{# } }}';
+                    }
                 }
-                if(isset($val['condition'])){
-                    $html.= '{{# } }}';
+                if(isset($val['is_break'])){
+                    $html .='<br/>';
                 }
             }
-            if(isset($val['is_break'])){
-                $html .='<br/>';
-            }
+
         }
         View::assign('button_list',$html);
 
