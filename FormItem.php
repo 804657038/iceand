@@ -14,6 +14,7 @@ namespace iceand;
  * * 静态助手调用
  * @method static FormItem hidden(string $field, string $label) 隐藏输入
  * @method static FormItem input(string $field, string $label) 单行输入
+ * @method static FormItem password(string $field, string $label) 密码输入
  * @method static FormItem number(string $field, string $label) 数字输入
  * @method static FormItem float(string $field, string $label) 浮点数输入
  * @method static FormItem radio(string $field, string $label) 单选
@@ -34,6 +35,10 @@ namespace iceand;
  * @method static FormItem txmap(string $field, string $label) 腾讯地图
  * @method static FormItem jsoneditor(string $field, string $label) JSON编辑器
  * @method static FormItem multiline(string $field, string $label) 多行文本输入
+ * @method static FormItem auth(string $field, string $label) 门店权限设置
+ * @method static FormItem quote(string $field, string $label) 提示字段
+ * @method static FormItem file(string $field, string $label) 文件上传
+ *
  */
 class FormItem
 {
