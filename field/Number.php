@@ -22,7 +22,9 @@ class Number
         if(isset($item['maxlenth']) && abs($item['maxlenth'])>0){
             $maxlenth = "maxlength='{$item['maxlenth']}'";
         }
-
+        if(isset($item['minlenth']) && abs($item['minlenth'])>0){
+            $maxlenth = "minlenth='{$item['minlenth']}'";
+        }
         $required = "";
         if(isset($item['required'])){
             $required = "required";

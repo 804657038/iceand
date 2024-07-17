@@ -47,6 +47,7 @@ class FormItem
     public $help;
     public $option;
     public $maxlenth;
+    public $minlenth;
     public $param;
     public $ajaxurl;
     public $legend;
@@ -80,6 +81,7 @@ class FormItem
     public function option(array $data = []){$this->option = $data;return $this;}
     public function help($help){$this->help = $help;return $this;}
     public function maxlenth($maxlenth){$this->maxlenth = $maxlenth;return $this;}
+    public function minlenth($minlenth){$this->minlenth = $minlenth;return $this;}
     public function ajaxUrl($url){$this->ajaxurl = $url;return $this;}
     public function param($val){$this->param = $val;return $this;}
     public function disabled(bool $val){$this->disabled = $val;return $this;}
