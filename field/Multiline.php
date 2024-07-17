@@ -97,6 +97,9 @@ $html = <<<EOT
          }else{
             formItem = "<input type='"+item.type+"' name='{$item['field']}["+{$item['field']}index+"]["+item.field+"]' class='layui-input'>" 
          }
+         if(item.type == 'hidden'){
+             formItem +=''
+         }
          {$item['field']}html +='<td>'+formItem+'</td>'
          
      })
