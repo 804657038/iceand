@@ -35,11 +35,6 @@ class Number
         }
         //value=value.replace(/[^\d]/g,'')
         $html = '<input type="number" '.$maxlenth.' '.$disabled.' '.$required.' name="'.$item['field'].'"  value="'.$item['value'].'" placeholder="请输入..." class="layui-input">';
-        if(isset($item['script']) && $item['script']){
-            $html .=$item['script'];
-        }else{
-
-        }
 
 
         return $html;

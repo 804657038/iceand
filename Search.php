@@ -24,6 +24,7 @@ class Search
 {
     public $ajaxurl;
     public $param;
+    public $html;
     private $_dynamicProperty = array();
     public function __get($name) {
         //判断是否存在该属性对应键名
@@ -44,6 +45,7 @@ class Search
     public function __isset($name) {
         return isset($this->_dynamicProperty[$name]);
     }
+
     /**
      * 静态魔术方法
      * @param string $method 方法名称
@@ -56,8 +58,13 @@ class Search
         $self->type = $method;
         $self->name = $args[0];
         $self->title = $args[1];
+
+        $name = ucwords($self->type);
+
+
         return $self;
     }
+
     public function option($option){
         $this->option = $option;
         return $this;
