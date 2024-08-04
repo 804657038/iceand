@@ -169,10 +169,13 @@ class Table
         View::assign('actionminwidth',$actionMinWidth);
         return dirname(__FILE__).'/view/table.html';
     }
+
     public function search(array $data):Table{
         $arr = [];
         $resData = [];
+
         foreach ($data as $val){
+            $val->html = $val->searchHtml();
             $vars = get_object_vars($val);
             $item = [];
             foreach ($vars as $k=>$v){

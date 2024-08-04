@@ -80,6 +80,7 @@ class Form
         $notSite = ['type','label','field','value','required','class_name'];
 
         foreach ($data as $val){
+
             $vars = get_object_vars($val);
             $item = [];
             foreach ($vars as $k=>$v){

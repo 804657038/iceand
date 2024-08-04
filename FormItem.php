@@ -38,6 +38,8 @@ namespace iceand;
  * @method static FormItem auth(string $field, string $label) 门店权限设置
  * @method static FormItem quote(string $field, string $label) 提示字段
  * @method static FormItem file(string $field, string $label) 文件上传
+ * @method static FormItem video(string $field, string $label) 视频上传
+ * @method static FormItem diy(string $field, string $label) DIY内容
  *
  */
 class FormItem
@@ -129,5 +131,15 @@ EOT;
 
 
         $this->script = $html;return $this;
+    }
+
+    public function searchHtml(){
+        $name = $this->type;
+        $name = ucwords($name);
+
+        $className =  "\\iceand\\search\\$name";
+        $class = new $className();
+        $vars = get_object_vars($this);
+        return call_user_func([&$class,"main"],$vars);
     }
 }
