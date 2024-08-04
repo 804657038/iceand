@@ -12,7 +12,10 @@ class DateRang
     public function main($val){
         $input  = input($val['name']);
         $html = <<<EOT
-<input data-date-range name="{$val['name']}" value="{$input}" placeholder="{:lang('请选择时间')}" class="layui-input">
+        <div class="layui-input-inline">
+        <input data-date-range name="{$val['name']}" value="{$input}" placeholder="请选择时间" class="layui-input">
+
+</div>
 EOT;
     return $html;
     }
