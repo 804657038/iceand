@@ -14,16 +14,16 @@ class Select
         $input = input($val['name']);
         foreach ($val['option'] as $v){
             if($v['value'] == $input){
-                $option .="<option value='{$val['value']}' selected>{$val['label']}</option>";
+                $option .="<option value='{$v['value']}' selected>{$v['label']}</option>";
 
             }else{
-                $option .="<option value='{$val['value']}'>{$val['label']}</option>";
+                $option .="<option value='{$v['value']}'>{$v['label']}</option>";
             }
         }
         $html = <<<EOT
 <div class="layui-input-inline">
    <select name="{$val['name']}" lay-search class="layui-select">
-        <option value=''>-- {:lang('全部')} --</option>
+        <option value=''>-- 全部 --</option>
         {$option}
    </select>
 
