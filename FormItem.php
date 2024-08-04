@@ -96,7 +96,9 @@ class FormItem
     public function hide(bool $val){$this->hide = $val;return $this;}
     public function multilines(array $val){$this->multiline = $val;return $this;}
     public function mine($mine){$this->mine = $mine;return $this;}
-
+    public function script($script){
+        $this->script = $script;return $this;
+    }
     public function showhide(array $val,$common=''){
         $tyle_field = "";
         switch ($this->type){
