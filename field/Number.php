@@ -34,18 +34,13 @@ class Number
             $disabled = "disabled";
         }
         //value=value.replace(/[^\d]/g,'')
-        $html = '<input oninput="editnumber(this)" type="number" '.$maxlenth.' '.$disabled.' '.$required.' name="'.$item['field'].'"  value="'.$item['value'].'" placeholder="请输入..." class="layui-input">';
-        $html .=<<<EOT
-        <script>  
-function editnumber(obj){
-    var val = $(obj).val()
-    if(val<=0 && val!==""){
-        $(obj).val(0)
-    }
-    // console.log(val)
-}
-</script>
-EOT;
+        $html = '<input type="number" '.$maxlenth.' '.$disabled.' '.$required.' name="'.$item['field'].'"  value="'.$item['value'].'" placeholder="请输入..." class="layui-input">';
+        if(isset($item['script']) && $item['script']){
+            $html .=$item['script'];
+        }else{
+
+        }
+
 
         return $html;
 

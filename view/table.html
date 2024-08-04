@@ -34,11 +34,27 @@
         {if isset($search)}
 
         <form class="layui-form layui-form-pane form-search" action="{:sysuri()}" onsubmit="return false" method="get" autocomplete="off">
+            <div class="layui-form-item layui-inline">
+                <label class="layui-form-label">基础信息</label>
+                <div class="layui-input-inline" style="width: 231px;">
+                    <div class="layui-input-inline" style="width: 80px;border-right: 1px solid #eee;">
+                        <select name="base_field" id="" lay-search="">
+                            <option value="1">111</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" style="width: 150px;">
+                        <input name="base" value="" placeholder="" class="layui-input">
+
+                    </div>
+                </div>
+            </div>
             {foreach $search as $val}
 
             <div class="layui-form-item layui-inline">
                 <label class="layui-form-label">{$val.title}</label>
-                {if $val.type eq 'linkage3'}
+                {if $val.type eq 'group'}
+
+                {elseif $val.type eq 'linkage3'}
 
                 <div class="layui-input-inline">
                     <select name="{$val['param'][0]['field']}" lay-filter="{$val['param'][0]['field']}" lay-search="">
