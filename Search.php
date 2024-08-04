@@ -18,6 +18,7 @@ namespace iceand;
  * @method static Search dateRang(string $name,string $title)  时间范围搜素
  * @method static Search linkage3(string $name,string $title)  三级联动
  * @method static Search linkage2(string $name,string $title)  二级联动
+ * @method static Search group(string $name,string $title)  组合搜索
  */
 class Search
 {
