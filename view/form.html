@@ -53,8 +53,16 @@
         <div style="height: 50px;"></div>
     </form>
 </div>
-
 <script>
+    var isopen
+</script>
+{if isset($formType) && $formType="open"}
+<script>
+    var isopen = 1
+</script>
+{/if}
+<script>
+
     require(['ckeditor'], function () {
         /*! 初始化 富文本插件 */
         (function initTextArea() {

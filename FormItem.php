@@ -117,6 +117,11 @@ class FormItem
             $html = <<<EOT
 <script>
 var json = JSON.parse('{$json}')
+form.on('select(filter)', function(data){
+  console.log(data.elem); //得到select原始DOM对象
+  console.log(data.value); //得到被选中的值
+  console.log(data.othis); //得到美化后的DOM对象
+});
 $('.{$this->field}').on('change',function(){
     var val = $('[name="{$this->field}"]:checked').val()
     console.log("cal",val)
@@ -129,6 +134,23 @@ $('.{$this->field}').on('change',function(){
 </script>
 EOT;
 
+        }else if($this->type == "select"){
+            $html = <<<EOT
+<script>
+    var json = JSON.parse('{$json}')
+    layui.form.on('select({$this->field})', function (obj) {
+         console.log("cal",obj.value)
+        $('.{$common}').hide()
+         var clsn =  json[obj.value]  
+         console.log("clsn",clsn)   
+         $('.'+clsn).show()
+        
+    
+    });
+
+
+</script>
+EOT;
         }
 
 

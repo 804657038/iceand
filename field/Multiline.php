@@ -58,7 +58,41 @@ class Multiline
             }
         }
         $tablehead .= "<td>操作</td></tr>";
-        $tablelist = $item['value'];
+        $tablelist = '';
+
+        if($item['value']){
+            if(is_array($item['value'])){
+                foreach ($item['value'] as $key=>$val){
+                    $tablelist .='<tr>';
+                    foreach ($item['multiline'] as $v){
+                        if($v['type'] == "select"){
+                            $tablelist .="<td><select name='{$item['field']}[{$key}][{$v['field']}]'>";
+                            foreach ($v['option'] as $s){
+                                if($val[$v['field']] && $s['value'] == $val[$v['field']]){
+                                    $tablelist .="<option selected value='{$s['value']}'>{$s['label']}</option>";
+
+                                }else{
+                                    $tablelist .="<option value='{$s['value']}'>{$s['label']}</option>";
+
+                                }
+                            }
+
+                            $tablelist .="</select></td>";
+                        }else{
+                            $tablelist .="<td><input type='{$v['type']}' name='{$item['field']}[{$key}][{$v['field']}]' value='{$val[$v['field']]}' class='layui-input'></td>";
+                        }
+                    }
+
+                    $tablelist .='<td> <a href="javascript:;" style="color:red;" onclick="$(this).parent().parent().remove()">删除</a> </td>';
+                    $tablelist .='</tr>';
+                }
+            }else{
+                $tablelist = $item['value'];
+
+            }
+
+        }
+
         if(!isset($item['disabled'])){
             $btn = <<<EOT
 <button type="button" class="layui-btn layui-btn-sm {$item['field']}_btn" data-title="添加">添加</button>

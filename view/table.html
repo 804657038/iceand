@@ -12,6 +12,9 @@
     .x-red{
         color: red;
     }
+    .showhides{
+        display: none;
+    }
 </style>
 {/block}
 
@@ -35,13 +38,18 @@
 
         <form class="layui-form layui-form-pane form-search" action="{:sysuri()}" onsubmit="return false" method="get" autocomplete="off">
 
-            {foreach $search as $val}
+            {foreach $search as $k=>$val}
 
-            <div class="layui-form-item layui-inline">
+            <div class="layui-form-item layui-inline {if $k>3}showhides{/if}">
                 <label class="layui-form-label">{$val.title}</label>
                 {$val.html|raw}
             </div>
             {/foreach}
+            {if count($search)>4}
+            <div class="layui-form-item layui-inline " style="border: none;">
+                <a href="javascript:;" id="moresearch">更多筛选</a>
+            </div>
+            {/if}
             <div class="layui-form-item layui-inline">
                 <button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe615;</i> {:lang('搜 索')}</button>
                 <button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon">&#x1002;</i> 重置</button>
@@ -63,9 +71,18 @@
 </div>
 <script>
     var util,table
+    var showmoresearch = false
     layui.use(['util','table'],function () {
         util = layui.util;
         table = layui.table
+        $('#moresearch').on('click',function(){
+            if(!showmoresearch){
+                $('.showhides').css('display','inline-block')
+            }else{
+                $('.showhides').css('display','none')
+            }
+            showmoresearch = !showmoresearch
+        })
     })
     function apiFormat(d){
         return util.escape(d.api);
