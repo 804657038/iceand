@@ -29,7 +29,7 @@ class Form
     }
     public function addBtnTitle($name){
     }
-    public static function template($field = [],$formType="",$value=[]){
+    public static function template($field = [],$formType="",$value=[],$tableId = "listTable"){
         if(!is_array($field[0])){
             $field = self::initForm($field,$value);
         }
@@ -44,6 +44,7 @@ class Form
             View::assign('formType',$formType);
         }
         View::assign('field',$field);
+        View::assign('tableId',$tableId);
 
         return dirname(__FILE__).'/view/form.html';
     }

@@ -5,7 +5,7 @@
 
 </style>
 <div class="layui-tab-content">
-    <form action="{:sysuri()}" id="thatForm" method="post" {if !isset($is_ztree)}data-auto="true"{/if} class="layui-form layui-card" data-table-id="listTable">
+    <form action="{:sysuri()}" id="thatForm" method="post" {if !isset($is_ztree)}data-auto="true"{/if} class="layui-form layui-card" data-table-id="{$tableId}">
         <div class="layui-card-body padding-left-40">
             <fieldset class="layui-bg-gray">
                 <legend><b class="layui-badge think-bg-violet">表单信息</b></legend>

@@ -16,26 +16,7 @@ namespace iceand\field;
  *
  */
 //$tablelist = '';
-//foreach ($viewing as $k=>$val){
-//    $tablelist .='<tr>';
-//    $tablelist .='<td>';
-//    $tablelist .='<select name="viewing['.$k.'][platform]">';
-//    foreach ($platformlist_option as $v){
-//        if($v['value'] == $val['platform']){
-//            $selected = "selected";
-//        }else{
-//            $selected = "";
-//        }
-//        $tablelist .='<option value="'.$v['value'].'" '.$selected.'>'.$v['label'].'</option>';
-//    }
-//    $tablelist .='</select>';
-//    $tablelist .='</td>';
-//    $tablelist .='<td>';
-//    $tablelist .='<input name="viewing['.$k.'][num]" class="layui-input" value="'.$val['num'].'">';
-//    $tablelist .='</td>';
-//    $tablelist .='<td> <a href="javascript:;" style="color:red;" onclick="$(this).parent().parent().remove()">删除</a> </td>';
-//    $tablelist .='</tr>';
-//}
+
 //FormItem::multiline('viewing','观看逻辑')->multilines([
 //    [
 //        'field'=>'platform',
