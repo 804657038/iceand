@@ -15,7 +15,33 @@
     .showhides{
         display: none;
     }
+    .morediv {
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .morediv .merchild {
+        display: none;
+        position: fixed;
+        top: 200px;
+        left: 100px;
+        z-index: 999;
+        background-color: #fff;
+        padding: 5px;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+    }
+
+    .morediv .merchild .text-btn {
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+    }
+
+    .morediv .merchild .text-btn:last-child {
+        border: none;
+    }
 </style>
+
 {/block}
 
 {block name="button"}
@@ -228,5 +254,27 @@
        var i = table.checkStatus('{$tid}')
        return i
     }
+    $(function () {
+        $('body').on('mouseenter','.morediv',function () {
+            var offset = $(this).offset();
+            console.log("Top Position: " + offset.top);
+            console.log("Left Position: " + offset.left);
+            $(this).stop().find('.merchild').css({
+                top:(offset.top+25) + 'px',
+                left:(offset.left-20) + 'px',
+            })
+            $(this).stop().find('.merchild').show();
+        })
+        $('body').on('mouseleave','.morediv',function () {
+            $(this).stop().find('.merchild').hide();
+        })
+        $('.morediv').stop().hover(function () {
+            console.log(111)
+            $(this).find('.merchild').show();
+        },function () {
+            $(this).find('.merchild').hide();
+
+        })
+    })
 </script>
 {/block}

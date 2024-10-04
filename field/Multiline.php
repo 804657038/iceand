@@ -59,6 +59,8 @@ class Multiline
                             }
 
                             $tablelist .="</select></td>";
+                        }else if($v['type'] == "hidden"){
+                            $tablelist .="<td><input type='hidden' name='{$item['field']}[{$key}][{$v['field']}]' value='{$val[$v['field']]}' class='layui-input'>{$val[$v['field']]}</td>";
                         }else{
                             $tablelist .="<td><input type='{$v['type']}' name='{$item['field']}[{$key}][{$v['field']}]' value='{$val[$v['field']]}' class='layui-input'></td>";
                         }
