@@ -115,7 +115,13 @@ class Table
         $html = '';
         foreach ($data as $val){
             if(isset($val['more'])){
-                $html .= '<div class="text-btn morediv">更多...<div class="merchild">';
+                if(isset($val['title']) && $val['title']){
+                    $title = $val['title'];
+                }else{
+                    $title = "更多...";
+
+                }
+                $html .= '<div class="text-btn morediv">'.$title.'<div class="merchild">';
                 foreach ($val['child'] as $v){
                     if(isset($v['open'])){
                         $html .= '<div class="text-btn" data-event-dbclick data-title="'.$v['title'].'" data-open="'.$v['url'].'?id={{d.id}}">'.$v['title'].'</div>';
