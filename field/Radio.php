@@ -19,6 +19,9 @@ class Radio
 
     public function main($item){
         $html ='';
+        if(!isset($item['option'])){
+            $item['option'] = [];
+        }
         foreach ($item['option'] as $val){
             $html .='<label class="think-checkbox">';
             if($item['value'] == $val['value']){

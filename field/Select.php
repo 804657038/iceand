@@ -27,7 +27,9 @@ class Select
         }
 
         $html ='<select name="'.$item['field'].'" '.$disabled.' lay-filter="'.$item['field'].'" '.$required.' lay-search="">';
-
+        if(!isset($item['option'])){
+            $item['option'] = [];
+        }
         foreach ($item['option'] as $val){
 
             if($item['value'] == $val['value']){

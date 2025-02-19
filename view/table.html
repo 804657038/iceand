@@ -176,7 +176,7 @@
 </script>
 {elseif $val['templetType'] == 'StatusSwitchTpl'}
     <script type="text/html" id="{:str_replace(["'#","'"],"",$val['templet'])}">
-        <input type="checkbox" value="{{d.id}}"  lay-skin="switch" lay-text="{:lang('启用')}|{:lang('禁用')}" lay-filter="StatusSwitch" {{-d.status>0?'checked':''}}>
+        <input type="checkbox" value="{{d.id}}"  lay-skin="switch" lay-text="{:lang('开启')}|{:lang('停止')}" lay-filter="StatusSwitch" {{-d.status>0?'checked':''}}>
 
     </script>
 

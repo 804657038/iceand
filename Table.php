@@ -133,8 +133,13 @@ class Table
                 $html .='</div></div>';
             }else{
                 if(isset($val['html'])){
+                    if(isset($val['condition'])){
+                        $html .='{{# if('.$val['condition'].'){  }}';
+                    }
                     $html .= $val['html'];
-
+                    if(isset($val['condition'])){
+                        $html.= '{{# } }}';
+                    }
                 }else{
                     if(isset($val['condition'])){
                         $html .='{{# if('.$val['condition'].'){  }}';

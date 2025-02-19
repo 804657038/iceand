@@ -83,6 +83,7 @@ class Form
         foreach ($data as $val){
 
             $vars = get_object_vars($val);
+
             $item = [];
             foreach ($vars as $k=>$v){
                 if(in_array($k,$notSite)){
@@ -98,7 +99,7 @@ class Form
                 }
             }
             $method = $item['type'];
-
+          
             $item['view'] = (new self())->$method($item);
             $resData[]=$item;
         }
