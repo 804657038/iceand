@@ -126,8 +126,11 @@ $('.{$this->field}').on('change',function(){
     var val = $('[name="{$this->field}"]:checked').val()
     console.log("cal",val)
     $('.{$common}').hide()
-     var clsn =  json[val]     
-     $('.'+clsn).show()
+     var clsn =  json[val]
+     if(clsn){
+             $('.'+clsn).show()
+
+     }     
 
 })
 
@@ -142,8 +145,11 @@ EOT;
          console.log("cal",obj.value)
         $('.{$common}').hide()
          var clsn =  json[obj.value]  
-         console.log("clsn",clsn)   
-         $('.'+clsn).show()
+         if(clsn){
+                
+            $('.'+clsn).show()
+         }
+       
         
     
     });
