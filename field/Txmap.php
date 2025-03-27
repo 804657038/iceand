@@ -24,7 +24,7 @@ class Txmap
      * @param $item
      */
     public function main($item){
-        $txmapkey = "VPCBZ-W7JWU-I4JVV-2UJ2P-LMPG5-4HBFT";
+        $txmapkey = systemConfig('txmapkey');
         $ajaxurl = url('addresstolatlng');
         $html = <<<EOT
         <div>

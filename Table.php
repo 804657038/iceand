@@ -14,7 +14,7 @@ use think\facade\View;
  * 动态助手调用
  * @method Table width(int $val) 设置宽度
  * @method Table isedit(bool $val) 设置是否允许修改字段
- * @method Table templet(string $name,string $templetType='') 设置是否允许修改字段
+ * @method Table templet(string $name,string $templetType='') 设置是否允许修改字段 function(d){return layui.laytpl(html).render(d);}
  * @method Table isimg(string $name) 设置图片预览
  * @method Table isswitch(string $name) 设置开关
  * @method Table ischeckbox(bool $val) 是否显示复选框
