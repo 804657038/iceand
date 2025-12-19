@@ -1,0 +1,128 @@
+<style>
+    .layui-form-item{
+        width:100%;
+
+    }
+    .field-item{
+        width:90%;
+        height: 290px;
+        border: 1px solid #ccc;
+        margin: 10px 0 0 10px;
+        border-radius: 5px;
+        position: relative;
+        padding-top: 10px;
+    }
+    .delbox{
+        position: absolute;
+        width: 60px;
+        height: 30px;
+        bottom: 0;
+        right: 0;
+        background-color: #FF5722;
+        color: #fff;
+        text-align: center;
+        line-height: 30px;
+    }
+    #fields_app select{
+        width: 190px;
+        height: 38px;
+        border-color: #eee;
+    }
+    .x-red{
+        color: red;
+    }
+</style>
+<div class="layui-form-item" id="fields_app">
+    <div class="field-item" v-for="(item,index) in values" :key="index">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="x-red">*</span> 表单类型</label>
+            <div class="layui-input-inline">
+                <select name="key" lay-ignore :name="`${field_name}[${index}][type]`" v-model="item.type">
+                    <option :value="val.key" v-for="(val,key) in fields" :selected="item.type == val.key">{{val.val}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"> <span class="x-red">*</span> 表单名称</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" v-model="item.title" :name="`${field_name}[${index}][title]`" :value="item.title">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"> <span class="x-red">*</span> 表单key</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" v-model="item.key" :name="`{${field_name}[${index}][key]`" :value="item.key">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"> <span class="x-red"></span>可选值</label>
+            <div class="layui-input-inline">
+                <textarea name="`${field_name}[${index}][option]`" v-model="item.option" class="layui-textarea">{{item.option}}</textarea>
+            </div>
+            <div class="layui-form-mid layui-word-aux" style="text-indent: 20px">
+                单选、多选、下拉选择需要设置可选值，格式
+                key1:val1
+                key2:val2
+                意思是
+                1:1个
+                2:2个
+            </div>
+        </div>
+        <div class="delbox" @click="dellist(index)">
+            删除
+        </div>
+    </div>
+
+    <button type="button" class="layui-btn layui-btn-sm" @click="addlist()">添加</button>
+</div>
+
+<script>
+    var fields = []
+    var values = []
+
+</script>
+
+<script>
+    fields = {$fields|raw};
+</script>
+
+{if $values}
+<script>
+    var data1 = {$values|raw};
+    values = data1;
+</script>
+{/if}
+
+<script>
+
+    $(function (){
+        require(['vue'],function (Vue){
+
+            let app = new Vue({
+                el: '#fields_app',
+                data:{
+                    field_name:'{$field_name}',
+                    fields:fields,
+                    values:values
+                },
+                created(){
+
+                },
+                methods:{
+                    addlist(){
+                        this.values.push({
+                            type:'',
+                            title:'',
+                            key:'',
+                            option:'',
+                        })
+                    },
+                    dellist(index){
+                        this.values.splice(index,1)
+                    }
+                }
+            })
+        })
+
+    })
+</script>

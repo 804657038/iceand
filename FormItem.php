@@ -40,6 +40,7 @@ namespace iceand;
  * @method static FormItem file(string $field, string $label) 文件上传
  * @method static FormItem video(string $field, string $label) 视频上传
  * @method static FormItem diy(string $field, string $label) DIY内容
+ * @method static FormItem fields(string $field, string $label) DIY内容
  *
  */
 class FormItem
