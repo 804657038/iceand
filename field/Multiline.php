@@ -15,7 +15,7 @@ namespace iceand\field;
  * @deprecated 使用示例
  *
  */
-//$tablelist = '';
+//$tablelist = [['platform'=>1,'num'=>2]];
 
 //FormItem::multiline('viewing','观看逻辑')->multilines([
 //    [

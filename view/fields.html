@@ -57,7 +57,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label"> <span class="x-red"></span>可选值</label>
             <div class="layui-input-inline">
-                <textarea name="`${field_name}[${index}][option]`" v-model="item.option" class="layui-textarea">{{item.option}}</textarea>
+                <textarea :name="`${field_name}[${index}][option]`" v-model="item.option" class="layui-textarea">{{item.option}}</textarea>
             </div>
             <div class="layui-form-mid layui-word-aux" style="text-indent: 20px">
                 单选、多选、下拉选择需要设置可选值，格式

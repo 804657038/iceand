@@ -2,6 +2,7 @@
 
 namespace iceand;
 use think\admin\extend\JwtExtend;
+use think\facade\Cache;
 use think\facade\Cookie;
 
 class Sms
@@ -15,11 +16,15 @@ class Sms
      * @param $phone
      * @param $code
      * @param $suffix
-     * @return void
+     * @return string
      */
     static public function send($phone, $code,$suffix = ""){
         if(!$phone) throw new \iceand\AuthException("请先设置手机号码");
-        $has = Cookie::has(self::$check_timeout_key);
+        $ip = request()->ip();
+        $cachekey = self::$check_timeout_key.$ip;
+
+
+        $has = Cache::has($cachekey);
 
         if($has) throw new \iceand\AuthException("请不要频繁点击");
         $data = [
@@ -36,9 +41,9 @@ class Sms
             'sub'=>self::$checkkey,
             'jti'=>json_encode($data)
         ],self::$jwtkey);
-        Cookie::set(self::$check_timeout_key, 1,60);
+        Cache::set($cachekey, 1,60);
         Cookie::set(self::$checkkey, $token,300);
-
+        return $token;
     }
 
     /**
@@ -48,15 +53,22 @@ class Sms
      * @return void
      * @throws \think\admin\Exception
      */
-    static public function checkvode($code,$phone)
+    static public function checkvode($code,$phone,string $isapi="")
     {
-        $cookie = Cookie::get(self::$checkkey);
-        if(!$cookie) throw new \iceand\AuthException("短信验证码错误");
+        if($isapi){
+            $cookie = $isapi;
+        }else{
+            $cookie = Cookie::get(self::$checkkey);
+            if(!$cookie) throw new \iceand\AuthException("短信验证码错误");
+        }
+
         $jwtData = JwtExtend::verify($cookie,self::$jwtkey);
 
         $jti = json_decode($jwtData['jti'],true);
         if($jti['phone']!=$phone) throw new \iceand\AuthException("短信验证码错误");
         if($jti['code']!=$code) throw new \iceand\AuthException("短信验证码错误");
-        Cookie::delete(self::$checkkey);
+        if(!$isapi){
+            Cookie::delete(self::$checkkey);
+        }
     }
 }

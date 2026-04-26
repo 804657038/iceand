@@ -2,30 +2,13 @@
 
 namespace iceand\field;
 
-//自定义表单字段
 use think\facade\View;
 
-class Fields
+/**
+ * keyvalue字段
+ */
+class Keyvalue
 {
-    protected function fields()
-    {
-        return [
-            'input'=>'单行文本',
-            'number'=>'数字',
-            'float'=>'浮点数',
-            'radio'=>'单选',
-            'checkbox'=>'多选',
-            'select'=>'下拉选择',
-            'textarea'=>'多行输入',
-            'img'=>'单图上传',
-            'date'=>'日期',
-            'dateRange'=>'日期范围',
-            'datetime'=>'时间',
-            'multiline'=>'自定义多行文本输入',
-
-        ];
-    }
-
     /**
      * value格式 type:类型，key:字段key,title:字段名称,option：选项，required：是否必填
      * @param $item
@@ -33,7 +16,7 @@ class Fields
      */
     public function main($item){
         $value = $item['value']?json_decode($item['value'],true):[];
-        $currentFilePath = dirname(__FILE__).'/../view/fields.html';
+        $currentFilePath = dirname(__FILE__).'/../view/keyvalue.html';
         $fields = $this->fields();
         $retfileds = [];
         foreach ($fields as $key=>$field){

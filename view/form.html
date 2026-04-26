@@ -53,8 +53,8 @@
         <div class="hr-line-dashed"></div>
         {notempty name='vo.id'}<input type='hidden' value='{$vo.id}' name='id'>{/notempty}
         <div class="layui-form-item text-center">
-            <button class="layui-btn" type='submit'>保存数据</button>
-            <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？"  {if isset($formType) && $formType="open"}data-history-back{else}data-close{/if}>取消编辑</button>
+            <button class="layui-btn" type='submit'>提交</button>
+            <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消吗？"  {if isset($formType) && $formType="open"}data-history-back{else}data-close{/if}>取消</button>
         </div>
         <div style="height: 50px;"></div>
     </form>
@@ -83,7 +83,75 @@
             setTimeout(initTextArea, 100);
         })();
     });
+    $(function(){
+        // 树下拉交互
+        var $treeSelect = $('.tree-select');
+        var $treeInput = $treeSelect.find('.tree-input');
+        var $treeDropdown = $('.tree-dropdown');
+        var $selectedSpan = $('#tree-name');
+        var $deptHidden = $('#department');
+// 点击输入框显示/隐藏下拉
+        $treeInput.on('click', function(e) {
+            console.log(2222)
+            e.stopPropagation();
+            $(this).siblings('.tree-dropdown').toggle();
 
+        });
+
+// 树节点点击处理 (使用事件委托)
+        $treeDropdown.on('click', 'li', function(e) {
+            e.stopPropagation(); // 阻止冒泡到父li
+            var $li = $(this);
+            var $childUl = $li.children('ul');
+
+            // 如果有子节点，切换展开/折叠
+            if ($childUl.length > 0) {
+                $childUl.toggle();
+                var $icon = $li.find('.toggle-icon');
+                if ($childUl.is(':visible')) {
+                    $icon.removeClass('layui-icon-triangle-r').addClass('layui-icon-triangle-d');
+                } else {
+                    $icon.removeClass('layui-icon-triangle-d').addClass('layui-icon-triangle-r');
+                }
+                return; // 不选中，直接返回
+            }
+
+            // 叶子节点：选中
+            var deptName = $li.find('.node-text').text();
+            var parentidbox = $('#'+$li.find('.node-text').data('parentid'))
+
+            parentidbox.find('.tree-name').text(deptName)
+
+            var set = $li.find('.node-text').data('set').split(";")
+
+            set.forEach(function (field){
+                var fieldName = field.split("#")
+
+                $('[name="'+fieldName[0]+'"]').val(fieldName[1])
+                $('[name="'+fieldName[0]+'"]').trigger('blur')
+            })
+
+
+            // 移除其他高亮，添加当前高亮
+            $treeDropdown.find('li').removeClass('active');
+            $li.addClass('active');
+            $treeDropdown.hide();
+
+
+        });
+        $('button[type="reset"]').on('click',function(){
+
+            $('.tree-name').text("请选择")
+            $('input[type="hidden"]').val("")
+        })
+// 点击其他地方隐藏下拉
+        $(document).on('click', function(e) {
+
+            if (!$treeSelect.is(e.target) && $treeSelect.has(e.target).length === 0) {
+                $treeDropdown.hide();
+            }
+        });
+    })
 </script>
 {if isset($is_ztree)}
 <script>

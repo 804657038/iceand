@@ -1,0 +1,20 @@
+<div class="layui-input-inline">
+    <div class="tree-select" id="{$item.name}TreeSelect">
+        <div class="tree-input">
+            <span class="tree-name" id="{$item.name}DeptName">{if isset($item['param'])}{$item.param}{else}请选择{$item.title}{/if}</span>
+            <i class="layui-icon layui-icon-down"></i>
+        </div>
+        <div class="tree-dropdown" id="{$item.name}Dropdown">
+            <ul id="{$item.name}TreeRoot"></ul>
+        </div>
+    </div>
+    <input type="hidden" name="{$item.name}" value="{if isset($item['value'])}{$item.value}{/if}">
+</div>
+<script>
+    $.form.load("{$item['ajaxurl']}",{},"get",function(ret){
+        var $deptRoot = $('#{$item.name}TreeRoot');
+
+        renderTree("{$item.name}TreeSelect",$deptRoot, ret.data, 0,"{$item.name}#id");
+        return false
+    }, null, null, 'false')
+</script>

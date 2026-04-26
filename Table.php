@@ -13,6 +13,7 @@ use think\facade\View;
  * Class Table
  * 动态助手调用
  * @method Table width(int $val) 设置宽度
+ * @method Table fixed(string $val) 设置宽度
  * @method Table isedit(bool $val) 设置是否允许修改字段
  * @method Table templet(string $name,string $templetType='') 设置是否允许修改字段 function(d){return layui.laytpl(html).render(d);}
  * @method Table isimg(string $name) 设置图片预览
@@ -90,8 +91,10 @@ class Table
      * @title 设置是否隐藏添加按钮
      * @return $this
      */
-    public function hideButtonAdd(){
-        View::assign('hideButtonAdd',true);
+    public function hideButtonAdd($bool = true){
+        if($bool){
+            View::assign('hideButtonAdd',true);
+        }
         return $this;
     }
 
@@ -104,6 +107,7 @@ class Table
         return $this;
     }
     public function setTableId($id){
+
         View::assign('tableId',$id);
         return $this;
 
@@ -136,11 +140,14 @@ class Table
                     if(isset($val['condition'])){
                         $html .='{{# if('.$val['condition'].'){  }}';
                     }
+                    $html .= "<div style='margin: 0 5px;display: inline;'>";
                     $html .= $val['html'];
+                    $html .= "</div>";
                     if(isset($val['condition'])){
                         $html.= '{{# } }}';
                     }
                 }else{
+
                     if(isset($val['condition'])){
                         $html .='{{# if('.$val['condition'].'){  }}';
                     }
@@ -178,6 +185,7 @@ class Table
             View::assign('formType',$formType);
         }
         View::assign('actionminwidth',$actionMinWidth);
+
         return dirname(__FILE__).'/view/table.html';
     }
 
@@ -229,5 +237,47 @@ EOT;
 
         View::assign('tableHeader',$resData);
         return (new self);
+    }
+
+    /**
+     * {
+     *     title:"",
+     *     param:""
+     * }
+     * @param $tabs
+     * @return $this
+     */
+    public function tabs($title,$tabs = [])
+    {
+        $li = "";
+        $spm = input('spm');
+        $model = app('http')->getName();
+        $sysuri = sysuri();
+        $url = "/{$model}.html#{$sysuri}?spm={$spm}";
+        foreach ($tabs as $k=>$v){
+
+            $clas = "";
+
+            if($v['sel']){
+                $clas = "layui-this";
+            }
+            $li .= <<<HTML
+ <li class="{$clas}" data-target-tips="{$title}" data-open="{$url}&{$v['param']}" >{$v['title']}</li>
+HTML;
+
+        }
+
+
+
+        $html = <<<HTML
+<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+  <ul class="layui-tab-title">
+    {$li}
+  </ul>
+
+</div>     
+HTML;
+        View::assign("tabs",$html);
+        return $this;
     }
 }

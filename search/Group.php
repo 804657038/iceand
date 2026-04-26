@@ -23,7 +23,7 @@ class Group
                 $body .='</select></div>';
             }else{
                 $body .='<div class="layui-input-inline" style="width: 150px;">';
-                $body .='<input name="'.$v['name'].'" value="" placeholder="" class="layui-input">';
+                $body .='<input name="'.$v['name'].'" value="" placeholder="请输入..." class="layui-input">';
                 $body .='</div>';
             }
 

@@ -47,13 +47,7 @@
 
 {block name="button"}
 
-{if !isset($hideButtonAdd) }
-<button {if isset($formType) && $formType="open"}data-open='{:url("add")}'{else}data-modal='{:url("add")}'{/if} data-title="添加" class='layui-btn layui-btn-sm layui-btn-primary'>添加</button>
-{/if}
 
-{if isset($allBtn)}
-{$allBtn|raw}
-{/if}
 {/block}
 
 {block name="content"}
@@ -61,21 +55,25 @@
 
 <div class="layui-tab layui-tab-card">
     <div class="layui-tab-content">
+        {if isset($tabs)}
+        {$tabs|raw}
+        <div style="width: 10px;height: 20px;"></div>
+        {/if}
         {if isset($search)}
 
         <form class="layui-form layui-form-pane form-search" action="{:sysuri()}" onsubmit="return false" method="get" autocomplete="off">
 
             {foreach $search as $k=>$val}
-
-            <div class="layui-form-item layui-inline {if $k>3}showhides{/if}">
+<!--            {if $k>3}showhides{/if}-->
+            <div class="layui-form-item layui-inline ">
                 <label class="layui-form-label">{$val.title}</label>
                 {$val.html|raw}
             </div>
             {/foreach}
             {if count($search)>4}
-            <div class="layui-form-item layui-inline " style="border: none;">
-                <a href="javascript:;" id="moresearch">更多筛选</a>
-            </div>
+<!--            <div class="layui-form-item layui-inline " style="border: none;">-->
+<!--                <a href="javascript:;" id="moresearch">更多筛选</a>-->
+<!--            </div>-->
             {/if}
             <div class="layui-form-item layui-inline">
                 <button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe615;</i> {:lang('搜 索')}</button>
@@ -90,7 +88,11 @@
             $tid = "listTable";
 
         }
+
         {/php}
+
+
+
         <table id="{$tid}"  lay-filter="listTable" data-url="{:sysuri('',input('get.'))}" data-target-search="form.form-search"></table>
 
     </div>
@@ -143,6 +145,7 @@
     var item = {
         field:'{$val.field}',
         title:'{$val.title}',
+        align: 'center'
     }
 </script>
 {/if}
@@ -161,6 +164,12 @@
     item['templet'] = "#inputTpl"
 </script>
 {/if}
+{if isset($val['fixed'])}
+<script>
+    item['fixed'] = "{$val['fixed']}"
+</script>
+{/if}
+
 <script>
     cols.push(item)
 </script>
@@ -192,29 +201,43 @@
     <input type="text"  data-action-blur="{:sysuri('editField')}" data-value="id#{{d.id}};field#{value}" data-loading="false" value="{{d.edit}}" class="layui-input text-center">
 </script>
 <script type="text/html" id="{$tid}toolbar">
+    {if isset($button_list)}
+    {$button_list|raw}
+    {/if}
     {if !isset($hideButtonAdd) }
     <a class="text-btn " data-event-dbclick data-title="{:lang('编辑')}" {if isset($formType) && $formType="open"}data-open='{:url("edit")}?id={{d.id}}'{else}data-modal='{:url("edit")}?id={{d.id}}'{/if}>{:lang('编 辑')}</a>
     {/if}
     {if !isset($hideButtonDel) }
     <a class="text-btn  x-red" data-confirm="{:lang('确定要永久删除吗？')}" data-action="{:url('remove')}" data-value="id#{{d.id}}">{:lang('删 除')}</a>
     {/if}
-    {if isset($button_list)}
-    {$button_list|raw}
-    {/if}
+
 </script>
+
         {if $actionminwidth != 'none'}
         <script>
-            cols.push({toolbar: '#{$tid}toolbar', title: '{:lang("操作面板")}', align: 'center', minWidth: '{$actionminwidth}', fixed: 'right'})
+            cols.push({toolbar: '#{$tid}toolbar', title: '{:lang("操作面板")}', align: 'center', width: '{$actionminwidth}', fixed: 'right'})
 
         </script>
         {/if}
+<script type="text/html" id="{$tid}toolbarDemo">
+    <!--{if auth("add")}-->
+    {if !isset($hideButtonAdd) }
+    <button {if isset($formType) && $formType="open"}data-open='{:url("add")}'{else}data-modal='{:url("add")}'{/if} data-title="添加" class='layui-btn layui-btn-sm'>添加</button>
+    {/if}
+    <!--{/if}-->
+
+    {if isset($allBtn)}
+    {$allBtn|raw}
+    {/if}
+
+</script>
 <script>
     var tableIns
     $(function () {
         tableIns = $('#{$tid}').layTable({
             even: true,
             height: 'full',
-            toolbar:true,
+            toolbar:'#{$tid}toolbarDemo' ,
             sort:{},
             where:{},
             loading:false,
@@ -276,6 +299,76 @@
             $(this).find('.merchild').hide();
 
         })
+
+        // 树下拉交互
+        var $treeSelect = $('.tree-select');
+        var $treeInput = $treeSelect.find('.tree-input');
+        var $treeDropdown = $('.tree-dropdown');
+        var $selectedSpan = $('#tree-name');
+        var $deptHidden = $('#department');
+// 点击输入框显示/隐藏下拉
+        $treeInput.on('click', function(e) {
+            console.log(2222)
+            e.stopPropagation();
+            $(this).siblings('.tree-dropdown').toggle();
+
+        });
+
+// 树节点点击处理 (使用事件委托)
+        $treeDropdown.on('click', 'li', function(e) {
+            e.stopPropagation(); // 阻止冒泡到父li
+            var $li = $(this);
+            var $childUl = $li.children('ul');
+
+            // 如果有子节点，切换展开/折叠
+            if ($childUl.length > 0) {
+                $childUl.toggle();
+                var $icon = $li.find('.toggle-icon');
+                if ($childUl.is(':visible')) {
+                    $icon.removeClass('layui-icon-triangle-r').addClass('layui-icon-triangle-d');
+                } else {
+                    $icon.removeClass('layui-icon-triangle-d').addClass('layui-icon-triangle-r');
+                }
+                return; // 不选中，直接返回
+            }
+
+            // 叶子节点：选中
+            var deptName = $li.find('.node-text').text();
+            var parentidbox = $('#'+$li.find('.node-text').data('parentid'))
+
+            parentidbox.find('.tree-name').text(deptName)
+
+            var set = $li.find('.node-text').data('set').split(";")
+
+            set.forEach(function (field){
+                var fieldName = field.split("#")
+
+                $('[name="'+fieldName[0]+'"]').val(fieldName[1])
+                $('[name="'+fieldName[0]+'"]').trigger('blur')
+            })
+
+
+            // 移除其他高亮，添加当前高亮
+            $treeDropdown.find('li').removeClass('active');
+            $li.addClass('active');
+            $treeDropdown.hide();
+
+
+        });
+        $('button[type="reset"]').on('click',function(){
+
+            $('.tree-name').text("请选择")
+            $('input[type="hidden"]').val("")
+        })
+// 点击其他地方隐藏下拉
+        $(document).on('click', function(e) {
+
+            if (!$treeSelect.is(e.target) && $treeSelect.has(e.target).length === 0) {
+                $treeDropdown.hide();
+            }
+        });
+
+
     })
 </script>
 {/block}

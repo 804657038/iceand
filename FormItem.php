@@ -40,7 +40,10 @@ namespace iceand;
  * @method static FormItem file(string $field, string $label) 文件上传
  * @method static FormItem video(string $field, string $label) 视频上传
  * @method static FormItem diy(string $field, string $label) DIY内容
- * @method static FormItem fields(string $field, string $label) DIY内容
+ * @method static FormItem fields(string $field, string $label) 自选字段
+ * @method static FormItem tree(string $field, string $label) 树选择
+ * @method static FormItem year(string $field, string $label) 年选择器
+ * @method static FormItem keyvalue(string $field, string $label) KeyValue输入,一共就两个输入框，可以点击添加
  *
  */
 class FormItem

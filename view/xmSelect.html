@@ -1,0 +1,21 @@
+
+<div id="{$item.name}"></div>
+<script>
+    var option = {:json_encode($item['option'])};
+    require(['xmSelect'], function (xmSelect) {
+        console.log("xmSelect",xmSelect)
+        var demo = xmSelect.render({
+            // 这里绑定css选择器
+            el: '#{$item.name}',
+            // 渲染的数据
+            data: option
+        })
+        // data
+        // {name: '水果', value: 1, selected: true, disabled: true},
+        // {name: '蔬菜', value: 2, selected: true},
+        // {name: '桌子', value: 3, disabled: true},
+        // {name: '北京', value: 4},
+        // 获取选中值, demo.getValue();
+        // 设置选中值, demo.setValue([{ name: '动态值', value: 999 }])
+    })
+</script>

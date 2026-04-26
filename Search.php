@@ -20,6 +20,8 @@ namespace iceand;
  * @method static Search linkage3(string $name,string $title)  时间范围搜素
  * @method static Search condition(string $name,string $title)  条件搜素
  * @method static Search group(string $name,string $title)  组合搜索
+ * @method static Search tree(string $name,string $title) 树形搜索
+ * @method static Search xmSelect(string $name,string $title) 下拉多选
  */
 class Search
 {
